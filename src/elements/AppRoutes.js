@@ -10,7 +10,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/profile" element={<Profile />} />
       <Route path="/sign_up" element={<SignUpForm/>} />
-      <Route path="/" element={<Feed />} />
+      <Route path="/feed" element={<Feed />} />
     </Routes>
   );
 }
@@ -21,8 +21,4 @@ function Feed() {
 
 function Profile() {
   return <h2>Profile</h2>;
-}
-
-function SignUp() {
-  return <h2>Sign Up</h2>;
 }
