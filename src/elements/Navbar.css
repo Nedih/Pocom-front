@@ -29,3 +29,8 @@
 .Navbar .active {
     background-color: #04AA6D;
 }
+
+.selected {
+    background-color: rgb(190, 190, 190);
+    color: #111;
+}

@@ -11,7 +11,7 @@ export default function AppRoutes() {
     <Routes>
       <Route path="/profile" element={<Profile />} />
       <Route path="/sign_up" element={<SignUpForm/>} />
-      <Route path="/feed" element={<Feed/>} />
+      <Route path="/feed" element={<Feed />} />
     </Routes>
   );
 }
@@ -19,8 +19,4 @@ export default function AppRoutes() {
 
 function Profile() {
   return <h2>Profile</h2>;
-}
-
-function SignUp() {
-  return <h2>Sign Up</h2>;
 }

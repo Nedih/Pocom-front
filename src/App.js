@@ -5,7 +5,6 @@ import {
 
 import './App.css';
 import Navbar from './elements/Navbar.js'
-import SignUpForm from './elements/SignUpForm.js'
 import AppRoutes from './elements/AppRoutes.js'
 
 function App() {
