@@ -4,6 +4,7 @@ import {
   Route,
 } from "react-router-dom";
 import SignUpForm from './SignUpForm.js'
+import Feed from '../components/Feed.js'
 
 export default function AppRoutes() {
   return (
@@ -15,9 +16,6 @@ export default function AppRoutes() {
   );
 }
   
-function Feed() {
-  return <h2>Feed</h2>;
-}
 
 function Profile() {
   return <h2>Profile</h2>;
