@@ -1,9 +1,24 @@
+import React from "react";
+import {
+  useNavigate,
+} from "react-router-dom";
 import './SignUpForm.css';
+import {useAuth} from '../AuthContext.js'
 
 function SignUpForm() {
+  const navigate = useNavigate();
+  const { setAuth} = useAuth();
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    sessionStorage.setItem('is-authorized', true);
+    setAuth(true);
+    navigate('/profile');
+  };
+
   return (
     <div className="SignUpForm">
-      <form action="/" method="post">
+      <form onSubmit={handleSubmit} method="post">
         <div class="form-row">
           <div class="col-md-4 mb-3">
             <label for="validationDefault01">First name</label>

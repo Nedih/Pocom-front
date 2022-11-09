@@ -1,16 +1,29 @@
 import './Navbar.css';
 import React from "react";
 import {
-  NavLink
+  NavLink,
+  useNavigate
 } from "react-router-dom";
+import axios from 'axios';
+import {useAuth} from '../AuthContext.js'
 
 function Navbar() {
+  const navigate = useNavigate();
+  const { setAuth, user } = useAuth();
+
+  const logout = async () => {
+    setAuth(false);
+    navigate('/login');
+  }
+
   return (
     <div className="Navbar">
       <ul>
         <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>Feed</NavLink></li>
-        <li><NavLink to="/profile" className={(navData) => navData.isActive ? "selected" : "" }>Profile</NavLink></li>
-        <li><NavLink to="/sign_up" className={(navData) => navData.isActive ? "selected" : "" }>Sign Up</NavLink></li>
+        <div className='right'>
+          <li><NavLink to="/profile" className={(navData) => navData.isActive ? "selected" : "" }>Profile</NavLink></li>
+          <li>Log out</li>
+        </div>
       </ul>
     </div>
   );

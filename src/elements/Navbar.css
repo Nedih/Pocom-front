@@ -34,3 +34,7 @@
     background-color: rgb(190, 190, 190);
     color: #111;
 }
+
+.right {
+    float: right;
+}

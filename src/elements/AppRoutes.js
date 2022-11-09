@@ -12,6 +12,7 @@ export default function AppRoutes() {
       <Route path="/profile" element={<Profile />} />
       <Route path="/sign_up" element={<SignUpForm/>} />
       <Route path="/feed" element={<Feed />} />
+      {/*<Route path="/" element={<div></div>} />*/}
     </Routes>
   );
 }
