@@ -13,7 +13,7 @@ function SignUpForm() {
     event.preventDefault();
     sessionStorage.setItem('is-authorized', true);
     setAuth(true);
-    navigate('/profile');
+    navigate('/feed');
   };
 
   return (

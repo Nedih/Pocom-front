@@ -13,7 +13,7 @@ function Navbar() {
 
   const logout = async () => {
     setAuth(false);
-    navigate('/login');
+    navigate('/sign_in');
   }
 
   return (
@@ -22,7 +22,7 @@ function Navbar() {
         <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>Feed</NavLink></li>
         <div className='right'>
           <li><NavLink to="/profile" className={(navData) => navData.isActive ? "selected" : "" }>Profile</NavLink></li>
-          <li>Log out</li>
+          <li><a onClick={logout}>Log out</a></li>
         </div>
       </ul>
     </div>
