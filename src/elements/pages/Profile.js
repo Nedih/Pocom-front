@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import './Profile.css';
+import FeedItem from "../../components/FeedItem";
+import Feed from "../../components/Feed";
 
 export default function Profile(){
 
@@ -18,6 +20,7 @@ export default function Profile(){
 
             </div>
             <div className="feed">
+                <Feed />
                 <p>placeholder 1</p>
                 <p>placeholder 2</p>
                 <p>placeholder 3</p>
