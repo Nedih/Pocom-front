@@ -28,11 +28,8 @@ function SignInForm() {
         </div>
         <label for="inputPassword6">Password</label>
         <input type="password" id="inputPassword6" class="form-control mx-sm-3" aria-describedby="passwordHelpInline" required/>
-        <small id="passwordHelpInline" class="text-muted">
-          Must be 8-20 characters long.
-        </small>
         <p></p>        
-        <button class="btn btn-primary" type="submit">Submit form</button>
+        <button class="btn btn-primary" type="submit">Log In</button>
       </form>
     </div>
   );
