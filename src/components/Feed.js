@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import data from './data/posts.json'
+import FeedItem from './FeedItem';
 import Pagination from './Pagination';
 
 export class Feed extends Component {
@@ -32,10 +33,7 @@ export class Feed extends Component {
     return (
       <div className='container mt-5'>
         {posts.slice(indexOfFirstPost,indexOfLastPost).map(post => (
-          <div key={post.id} className="alert alert-primary">
-            <h4 className="alert-heading">{post.title}</h4>
-            <p>{post.body}</p>
-          </div>
+          <FeedItem post={post}/>
         ))}
         <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
       </div>
