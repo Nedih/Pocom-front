@@ -6,6 +6,7 @@ import {
 import SignUpForm from './SignUpForm.js'
 import SignInForm from './SignInForm.js'
 import Feed from '../components/Feed.js'
+import Profile from './pages/Profile.js'
 
 export default function AppRoutes() {
   return (
@@ -17,9 +18,4 @@ export default function AppRoutes() {
       {/*<Route path="/" element={<div></div>} />*/}
     </Routes>
   );
-}
-  
-
-function Profile() {
-  return <h2>Profile</h2>;
 }
