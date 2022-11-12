@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from "react";
 import {
+  NavLink,
   useNavigate,
 } from "react-router-dom";
 import {useAuth} from '../AuthContext.js'
@@ -300,8 +301,7 @@ function SignUpForm() {
                     <p>
                         Already registered?<br />
                         <span className="line">
-                            {/*put router link here*/}
-                            <a href="#">Sign In</a>
+                        <NavLink to='/sign_in'>Sign In</NavLink>
                         </span>
                     </p>
                 </section>
