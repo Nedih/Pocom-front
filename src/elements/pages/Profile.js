@@ -21,11 +21,6 @@ export default function Profile(){
             </div>
             <div className="feed">
                 <Feed />
-                <p>placeholder 1</p>
-                <p>placeholder 2</p>
-                <p>placeholder 3</p>
-                <p>placeholder 4</p>
-                <p>placeholder 5</p>
             </div>
         </div>
     );

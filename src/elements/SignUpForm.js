@@ -1,89 +1,312 @@
-import React, {useState} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import {
   useNavigate,
 } from "react-router-dom";
-import './SignUpForm.css';
 import {useAuth} from '../AuthContext.js'
 import DatePicker from "react-datepicker";
+import PhoneInput from 'react-phone-number-input'
+import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "../api/axios.js";
+
+import './SignUpForm.css';
 import "react-datepicker/dist/react-datepicker.css";
 import 'react-phone-number-input/style.css'
-import PhoneInput from 'react-phone-number-input'
+
+const NAME_REGEX = /^[A-Z][A-z" "-]{3,49}$/;
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
+const PHONE_REGEX  = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+const REGISTER_URL = '/register';
 
 function SignUpForm() {
   const navigate = useNavigate();
   const { setAuth} = useAuth();
-  const [startDate, setStartDate] = useState(new Date());
-  const [phone, setPhone] = useState();
+  
+  const usernameRef = useRef();
+  const errRef = useRef();
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    sessionStorage.setItem('is-authorized', true);
-    console.log(phone);
-    setAuth(true);
-    navigate('/feed');
-  };
+  const [username, setUsername] = useState('');
+  const [validUsername, setValidUsername] = useState(false);
+  const [usernameFocus, setUsernameFocus] = useState(false);
+
+  const [name, setName] = useState('');
+  const [validName, setValidName] = useState(false);
+  const [nameFocus, setNameFocus] = useState(false);
+
+  const [email, setEmail] = useState('');
+  const [validEmail, setValidEmail] = useState(false);
+
+  const [date, setDate] = useState(new Date());
+  const [validDate, setValidDate] = useState(false);
+  //const [nameFocus, setNameFocus] = useState(false);
+
+  const [phone, setPhone] = useState('');
+  const [validPhone, setValidPhone] = useState(false);
+  const [phoneFocus, setPhoneFocus] = useState(false);
+
+  const [pwd, setPwd] = useState('');
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
+
+  const [matchPwd, setMatchPwd] = useState('');
+  const [validMatch, setValidMatch] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
+
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+      usernameRef.current.focus();
+  }, [])
+
+  useEffect(() => {
+      setValidUsername(USER_REGEX.test(username));
+  }, [username])
+
+  useEffect(() => {
+    setValidName(NAME_REGEX.test(name));
+  }, [name])
+
+  useEffect(() => {
+    setValidEmail(EMAIL_REGEX.test(email));
+  }, [email])
+
+  useEffect(() => {
+    console.log((new Date().getFullYear()) - date.getFullYear());
+    setValidDate((new Date().getFullYear()) - date.getFullYear() >= 14);
+  }, [date])
+
+  useEffect(() => {
+    setValidPhone(PHONE_REGEX.test(phone));
+  }, [phone])
+
+  useEffect(() => {
+      setValidPwd(PWD_REGEX.test(pwd));
+      setValidMatch(pwd === matchPwd);
+  }, [pwd, matchPwd])
+
+  useEffect(() => {
+      setErrMsg('');
+  }, [name, username, email, phone, pwd, matchPwd])
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const v1 = USER_REGEX.test(username);
+    const v2 = PWD_REGEX.test(pwd);
+    const v3 = NAME_REGEX.test(name);
+    const v4 = PHONE_REGEX.test(phone);
+    const v5 = EMAIL_REGEX.test(email);
+    const v6 = (new Date().getFullYear()) - date.getFullYear() >= 14;
+    if (!v1 || !v2 || !v3 || !v4 || !v5 || !v6) {
+        setErrMsg("Invalid Entry");
+        return;
+    }
+    try {
+        /*const response = await axios.post(REGISTER_URL,
+            JSON.stringify({ name, username, pwd }),
+            {
+                headers: { 'Content-Type': 'application/json' },
+                withCredentials: true
+            }
+        );
+        console.log(response?.data);
+        console.log(response?.accessToken);
+        console.log(JSON.stringify(response))*/
+        setSuccess(true);
+
+        setUsername('');
+        setName('');
+        setEmail('');
+        setPhone('');
+        setDate('');
+        setPwd('');
+        setMatchPwd('');
+
+        sessionStorage.setItem('is-authorized', true);
+        setAuth(true);
+        navigate('/feed');
+    } catch (err) {
+        if (!err?.response) {
+            setErrMsg('No Server Response');
+        } else if (err.response?.status === 409) {
+            setErrMsg('Username Taken');
+        } else {
+            setErrMsg('Registration Failed')
+        }
+        errRef.current.focus();
+    }
+}
 
   return (
     <div className="SignUpForm">
-      <form onSubmit={handleSubmit} method="post">
-        <div class="form-row">
-          <div class="col-md-4 mb-3">
-            <label for="validationDefault01">First name</label>
-            <input type="text" class="form-control" id="validationDefault01" placeholder="First name" value="Mark" required/>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label for="validationDefault02">Last name</label>
-            <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required/>
-          </div>
-          <div class="col-md-4 mb-3">
-            <label for="validationDefault02">Middle name</label>
-            <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required/>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <label for="validationDefaultUsername">Email</label>
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupPrepend2">@</span>
-            </div>
-            <input type="text" class="form-control" id="validationDefaultUsername" placeholder="Username" aria-describedby="inputGroupPrepend2" required/>
-          </div>
-        </div>
-        <label for="validationDefault05" class="form-label">Birth</label>
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-          <label for="validationDefault05" class="form-label">Phone</label>
-          <PhoneInput
-            placeholder="Enter phone number"
-            value={phone}
-            onChange={setPhone}/>
-        <div class="col-md-4 mb-3">
-            <label for="validationDefault02">Username</label>
-            <input type="text" class="form-control" id="validationDefault02" placeholder="Last name" value="Otto" required/>
-          </div>
-          <div class="row g-3 align-items-center">
-          <div class="col-auto">
-            <label for="inputPassword6" class="col-form-label">Password</label>
-          </div>
-          <div class="col-auto">
-            <input type="password" id="inputPassword6" class="form-control" aria-describedby="passwordHelpInline"/>
-          </div>
-          <div class="col-auto">
-            <span id="passwordHelpInline" class="form-text">
-              Must be 8-20 characters long.
-            </span>
-          </div>
-        </div>
-        <p></p>
-        <div class="form-group">
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required/>
-            <label class="form-check-label" for="invalidCheck2">
-              Agree to terms and conditions
-            </label>
-          </div>
-        </div>
-        <button class="btn btn-primary" type="submit">Submit form</button>
-      </form>
+      <>
+            {success ? (
+                <section>
+                    <h1>Success!</h1>
+                    <p>
+                        <a href="#">Sign In</a>
+                    </p>
+                </section>
+            ) : (
+                <section>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <h1>Register</h1>
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="name">
+                            Name:
+                            <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validName || !name ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            //ref={nameRef}
+                            autoComplete="off"
+                            onChange={(e) => setName(e.target.value)}
+                            value={name}
+                            required
+                            aria-invalid={validName ? "false" : "true"}
+                            aria-describedby="uidnote"
+                            onFocus={() => setNameFocus(true)}
+                            onBlur={() => setNameFocus(false)}
+                        />
+                        <p id="uidnote" className={nameFocus && name && !validName ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            4 to 50 characters.<br />
+                            Must begin with a letter.<br />
+                            Letters, spaces, hyphens allowed.
+                        </p>
+
+                        <label htmlFor="username">
+                            Username:
+                            <FontAwesomeIcon icon={faCheck} className={validUsername ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validUsername || !username ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="username"
+                            ref={usernameRef}
+                            autoComplete="off"
+                            onChange={(e) => setUsername(e.target.value)}
+                            value={username}
+                            required
+                            aria-invalid={validUsername ? "false" : "true"}
+                            aria-describedby="uidnote"
+                            onFocus={() => setUsernameFocus(true)}
+                            onBlur={() => setUsernameFocus(false)}
+                        />
+                        <p id="uidnote" className={usernameFocus && username && !validUsername ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            4 to 24 characters.<br />
+                            Must begin with a letter.<br />
+                            Letters, numbers, underscores, hyphens allowed.
+                        </p>
+
+                        <label htmlFor="email">
+                            Email:
+                            <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="email"
+                            autoComplete="off"
+                            onChange={(e) => setEmail(e.target.value)}
+                            value={email}
+                            required
+                            aria-invalid={validEmail ? "false" : "true"}
+                            aria-describedby="uidnote"
+                            //onFocus={() => setEmailFocus(true)}
+                            //onBlur={() => setEmailFocus(false)}
+                        />
+
+                        <label htmlFor="date">
+                            Birth Date:
+                            <FontAwesomeIcon icon={faCheck} className={validDate ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validDate || !date ? "hide" : "invalid"} />
+                        </label>
+                        <DatePicker id="date" selected={date} onChange={(date) => setDate(date)} 
+                          aria-invalid={validDate ? "false" : "true"}
+                          aria-describedby="uidnote"/>
+                        
+                        <label htmlFor="phone">
+                            Phone:
+                            <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="text"
+                            id="phone"
+                            autoComplete="off"
+                            onChange={(e) => setPhone(e.target.value)}
+                            value={phone}
+                            required
+                            aria-invalid={validPhone ? "false" : "true"}
+                            aria-describedby="uidnote"
+                            onFocus={() => setPhoneFocus(true)}
+                            onBlur={() => setPhoneFocus(false)}
+                        />
+
+                        <label htmlFor="password">
+                            Password:
+                            <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            onChange={(e) => setPwd(e.target.value)}
+                            value={pwd}
+                            required
+                            aria-invalid={validPwd ? "false" : "true"}
+                            aria-describedby="pwdnote"
+                            onFocus={() => setPwdFocus(true)}
+                            onBlur={() => setPwdFocus(false)}
+                        />
+                        <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            8 to 24 characters.<br />
+                            Must include uppercase and lowercase letters, a number and a special character.<br />
+                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                        </p>
+
+
+                        <label htmlFor="confirm_pwd">
+                            Confirm Password:
+                            <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
+                            <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
+                        </label>
+                        <input
+                            type="password"
+                            id="confirm_pwd"
+                            onChange={(e) => setMatchPwd(e.target.value)}
+                            value={matchPwd}
+                            required
+                            aria-invalid={validMatch ? "false" : "true"}
+                            aria-describedby="confirmnote"
+                            onFocus={() => setMatchFocus(true)}
+                            onBlur={() => setMatchFocus(false)}
+                        />
+                        <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Must match the first password input field.
+                        </p>
+
+                        <button disabled={!validUsername || !validName || !validEmail || !validDate || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                    </form>
+                    <p>
+                        Already registered?<br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <a href="#">Sign In</a>
+                        </span>
+                    </p>
+                </section>
+            )}
+        </>
     </div>
   );
 }
