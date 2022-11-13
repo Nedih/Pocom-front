@@ -5,6 +5,7 @@ import {
   useNavigate
 } from "react-router-dom";
 import axios from 'axios';
+import i18n from './i18n';
 import {useAuth} from '../AuthContext.js'
 
 function Navbar() {
@@ -19,10 +20,10 @@ function Navbar() {
   return (
     <div className="Navbar">
       <ul>
-        <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>Feed</NavLink></li>
+        <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Feed')}</NavLink></li>
         <div className='right'>
-          <li><NavLink to="/profile" className={(navData) => navData.isActive ? "selected" : "" }>Profile</NavLink></li>
-          <li><a onClick={logout}>Log out</a></li>
+          <li><NavLink to="/profile" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Profile')}</NavLink></li>
+          <li><a onClick={logout}>{i18n.t('Log out')}</a></li>
         </div>
       </ul>
     </div>

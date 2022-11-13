@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
+import i18n from './i18n';
 import {
   NavLink,
   useNavigate,
@@ -295,12 +296,12 @@ function SignUpForm() {
                             Must match the first password input field.
                         </p>
 
-                        <button disabled={!validUsername || !validName || !validEmail || !validDate || !validPwd || !validMatch ? true : false}>Sign Up</button>
+                        <button disabled={!validUsername || !validName || !validEmail || !validDate || !validPwd || !validMatch ? true : false}>{i18n.t('Sign Up')}</button>
                     </form>
                     <p>
                         Already registered?<br />
                         <span className="line">
-                        <NavLink to='/sign_in'>Sign In</NavLink>
+                        <NavLink to='/sign_in'>{i18n.t('Sign In')}</NavLink>
                         </span>
                     </p>
                 </section>
