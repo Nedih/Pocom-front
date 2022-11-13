@@ -8,7 +8,7 @@ import {
 import {useAuth} from '../AuthContext.js'
 import axios from '../api/axios.js';
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/sign-in';
 
 function SignInForm() {
   const navigate = useNavigate();
@@ -33,17 +33,17 @@ function SignInForm() {
     e.preventDefault();
 
     try {
-        /*const response = await axios.post(LOGIN_URL,
+        const response = await axios.post(LOGIN_URL,
             JSON.stringify({ user, pwd }),
             {
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 withCredentials: true
             }
         );
         console.log(JSON.stringify(response?.data));
         //console.log(JSON.stringify(response));
         const accessToken = response?.data?.accessToken;
-        const roles = response?.data?.roles;*/
+        const roles = response?.data?.roles;
         //setAuth({ user, pwd, roles, accessToken });
         sessionStorage.setItem('is-authorized', true);
         setAuth(true);

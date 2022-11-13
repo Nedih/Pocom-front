@@ -19,7 +19,7 @@ const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
 const PHONE_REGEX  = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const REGISTER_URL = '/register';
+const REGISTER_URL = '/sign-up';
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -106,8 +106,17 @@ function SignUpForm() {
         return;
     }
     try {
-        /*const response = await axios.post(REGISTER_URL,
-            JSON.stringify({ name, username, pwd }),
+        const newUser = {
+          Email: email,
+          Name: name,
+          Login: username,
+          DateOfBirth: date,
+          PhoneNumber: phone,
+          Password: pwd,
+          PasswordConfirm: matchPwd
+        }
+        const response = await axios.post(REGISTER_URL,
+            JSON.stringify(newUser),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
@@ -115,7 +124,7 @@ function SignUpForm() {
         );
         console.log(response?.data);
         console.log(response?.accessToken);
-        console.log(JSON.stringify(response))*/
+        console.log(JSON.stringify(response))
         setSuccess(true);
 
         setUsername('');
