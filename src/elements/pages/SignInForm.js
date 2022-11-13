@@ -12,7 +12,7 @@ const LOGIN_URL = '/sign-in';
 
 function SignInForm() {
   const navigate = useNavigate();
-  const { setAuth} = useAuth();
+  const { setAuth, setAuthUser} = useAuth();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -44,8 +44,8 @@ function SignInForm() {
         //console.log(JSON.stringify(response));
         const accessToken = response?.data?.accessToken;
         const roles = response?.data?.roles;
-        //setAuth({ user, pwd, roles, accessToken });
-        sessionStorage.setItem('is-authorized', true);
+        setAuthUser({ user, pwd, roles, accessToken });
+        //sessionStorage.setItem('is-authorized', true);
         setAuth(true);
         navigate('/feed');
         setUser('');

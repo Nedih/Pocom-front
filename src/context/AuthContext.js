@@ -14,9 +14,9 @@ export const useAuth = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState(null);
-  const [user, setUser] = useState(null);
+  const [authUser, setAuthUser] = useState(null);
 
-  useEffect(() => {
+  /*useEffect(() => {
     const isAuth = async () => {
       try {
         const res = await axios.get(
@@ -24,17 +24,17 @@ const AuthProvider = ({ children }) => {
           { withCredentials: true }
         );
       
-        setUser(res.data);
+        setAuthUser(res.data);
       } catch(error) {
-        setUser(null);
+        setAuthUser(null);
       };
     };
 
     isAuth();
-  }, [auth]);
+  }, [auth]);*/
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, user }}>
+    <AuthContext.Provider value={{ auth, setAuth, authUser, setAuthUser }}>
       {children}
     </AuthContext.Provider>
   );
