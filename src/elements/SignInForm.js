@@ -1,5 +1,6 @@
 import './SignUpForm.css';
 import { useRef, useState, useEffect, useContext } from 'react';
+import i18n from './i18n';
 import {
   NavLink,
   useNavigate,
@@ -81,7 +82,7 @@ function SignInForm() {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>Sign In</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">Username:</label>
+                        <label htmlFor="username">{i18n.t('Username:')}</label>
                         <input
                             type="text"
                             id="username"
@@ -92,7 +93,7 @@ function SignInForm() {
                             required
                         />
 
-                        <label htmlFor="password">Password:</label>
+                        <label htmlFor="password">{i18n.t('Password:')}</label>
                         <input
                             type="password"
                             id="password"
@@ -100,12 +101,12 @@ function SignInForm() {
                             value={pwd}
                             required
                         />
-                        <button>Sign In</button>
+                        <button>{i18n.t('Sign In')}</button>
                     </form>
                     <p>
                         Need an Account?<br />
                         <span className="line">
-                        <NavLink to='/sign_up'>Sign Up</NavLink>
+                        <NavLink to='/sign_up'>{i18n.t('Sign Up')}</NavLink>
                         </span>
                     </p>
                 </section>
