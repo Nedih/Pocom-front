@@ -5,8 +5,8 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import {useAuth} from '../AuthContext.js'
-import axios from '../api/axios.js';
+import {useAuth} from '../../context/AuthContext.js'
+import axios from '../../api/axios.js';
 
 const LOGIN_URL = '/sign-in';
 

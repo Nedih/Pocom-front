@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import {
   BrowserRouter as Router,
 } from "react-router-dom";
@@ -6,8 +6,8 @@ import {
 import './App.css';
 import Navbar from './elements/Navbar.js'
 import NotAuthNavbar from './elements/NotAuthNavbar.js'
-import AppRoutes from './elements/AppRoutes.js'
-import {useAuth} from './AuthContext.js'
+import AppRoutes from "./router/AppRoutes";
+import {useAuth} from './context/AuthContext.js'
 
 function App() {
   const { auth } = useAuth();

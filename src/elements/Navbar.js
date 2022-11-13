@@ -1,15 +1,15 @@
 import './Navbar.css';
-import React from "react";
+import React, {useContext} from "react";
 import {
   NavLink,
   useNavigate
 } from "react-router-dom";
 import axios from 'axios';
-import {useAuth} from '../AuthContext.js'
+import AuthContext from '../context/AuthContext';
 
 function Navbar() {
   const navigate = useNavigate();
-  const { setAuth, user } = useAuth();
+  const { setAuth, user } = useContext(AuthContext);
 
   const logout = async () => {
     setAuth(false);

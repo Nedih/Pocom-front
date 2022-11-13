@@ -1,14 +1,14 @@
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useContext} from "react";
 import {
   NavLink,
   useNavigate,
 } from "react-router-dom";
-import {useAuth} from '../AuthContext.js'
+import {useAuth} from '../../context/AuthContext.js'
 import DatePicker from "react-datepicker";
 import PhoneInput from 'react-phone-number-input'
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "../api/axios.js";
+import axios from "../../api/axios.js";
 
 import './SignUpForm.css';
 import "react-datepicker/dist/react-datepicker.css";
