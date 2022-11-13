@@ -1,6 +1,6 @@
 import './SignUpForm.css';
 import { useRef, useState, useEffect, useContext } from 'react';
-import i18n from './i18n';
+import { useTranslation } from 'react-i18next';
 import {
   NavLink,
   useNavigate,
@@ -12,6 +12,7 @@ import axios from '../api/axios.js';
 const LOGIN_URL = '/auth';
 
 function SignInForm() {
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const { setAuth} = useAuth();
   const userRef = useRef();
