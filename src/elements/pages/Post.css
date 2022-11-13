@@ -1,0 +1,10 @@
+.post {
+    margin: 5% 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.img {
+
+}

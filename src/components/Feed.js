@@ -7,7 +7,7 @@ export class Feed extends Component {
   state = {
     posts: data,
     currentPage: 1,
-    postsPerPage: 5
+    postsPerPage: 5,
   };
   componentDidMount() {
     const getPosts = async () => {
@@ -16,8 +16,8 @@ export class Feed extends Component {
 
     getPosts();
   }
-  render() {
-    
+
+  render() {   
     const { currentPage, postsPerPage, posts } = this.state;
 
     const indexOfLastPost = currentPage * postsPerPage;
