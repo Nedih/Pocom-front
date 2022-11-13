@@ -38,3 +38,8 @@
 .right {
     float: right;
 }
+
+.lang {
+    display: flex;
+    flex-direction: row;
+}

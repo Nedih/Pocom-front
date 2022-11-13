@@ -1,20 +1,27 @@
 import './Navbar.css';
 import React from "react";
-import i18n from './i18n';
+import i18n from '../i18n';
+import { useTranslation } from 'react-i18next';
 import {
   NavLink
 } from "react-router-dom";
 
+const lngs = {
+  en: { nativeName: 'English' },
+  ua: { nativeName: 'Ukrainian' }
+};
+
 function NotAuthNavbar() {
+  const { i18n } = useTranslation();
 
   return (
     <div className="Navbar">
       <ul>
-        <li><div>
+        <li><div className='lang'>
           {Object.keys(lngs).map((lng) => (
-            <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
+            <a key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
               {lngs[lng].nativeName}
-            </button>
+            </a>
           ))}
         </div></li>
         <div className='right'>

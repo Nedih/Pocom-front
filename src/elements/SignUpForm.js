@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from "react";
-import i18n from './i18n';
+import { useTranslation } from 'react-i18next';
 import {
   NavLink,
   useNavigate,
@@ -23,6 +23,7 @@ const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 const REGISTER_URL = '/register';
 
 function SignUpForm() {
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const { setAuth} = useAuth();
   

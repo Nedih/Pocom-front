@@ -5,10 +5,17 @@ import {
   useNavigate
 } from "react-router-dom";
 import axios from 'axios';
-import i18n from './i18n';
+import { useTranslation } from 'react-i18next';
+
 import {useAuth} from '../AuthContext.js'
 
+const lngs = {
+  en: { nativeName: 'English' },
+  ua: { nativeName: 'Ukrainian' }
+};
+
 function Navbar() {
+  const { i18n } = useTranslation();
   const navigate = useNavigate();
   const { setAuth, user } = useAuth();
 
@@ -20,6 +27,15 @@ function Navbar() {
   return (
     <div className="Navbar">
       <ul>
+        <li>
+          <div className='lang'>
+            {Object.keys(lngs).map((lng) => (
+              <a key={lng} onClick={() => i18n.changeLanguage(lng)}>
+                {lngs[lng].nativeName}
+              </a>
+            ))}
+          </div>
+        </li>
         <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Feed')}</NavLink></li>
         <div className='right'>
           <li><NavLink to="/profile" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Profile')}</NavLink></li>
