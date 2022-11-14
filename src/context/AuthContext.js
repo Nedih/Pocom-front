@@ -7,7 +7,8 @@ const LOGIN_URL = '/auth';
 const AuthContext = createContext({
   auth: null,
   setAuth: () => {},
-  user: null,
+  authUser: null,
+  setAuthUser: () => {},
 });
 
 export const useAuth = () => useContext(AuthContext);

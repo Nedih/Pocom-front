@@ -4,17 +4,44 @@ import {
   NavLink,
   useNavigate
 } from "react-router-dom";
-import axios from 'axios';
+import axios from '../api/axios';
 import AuthContext from '../context/AuthContext';
+import {useAuth} from '../context/AuthContext'
+
+const LOGOUT_URL = '/api/auth/sign-out';
 
 function Navbar() {
   const navigate = useNavigate();
-  const { setAuth, user } = useContext(AuthContext);
+  const { setAuth, authUser} = useAuth();
 
   const logout = async () => {
-    setAuth(false);
-    navigate('/sign_in');
+    try {
+      const token = authUser.accessToken;
+      console.log("Send this:" + token);
+      const response = await axios.get("data",         
+          {
+            headers: { 'Authorization': `Bearer ${token}`,
+              "access-control-allow-origin" : "*",
+          'Content-Type': 'application/json'  },
+            withCredentials: true
+          }
+      );
+      console.log(JSON.stringify(response?.data));
+      setAuth(false);
+      navigate('/sign_in');
+    }
+    catch (err) {
+      if (!err?.response) {
+        console.log('No Server Response');
+      } else if (err.response?.status === 400) {
+        console.log('Missing Username or Password');
+      } else if (err.response?.status === 401) {
+        console.log('Unauthorized');
+      } else {
+        console.log('Login Failed');
+      }
   }
+}
 
   return (
     <div className="Navbar">

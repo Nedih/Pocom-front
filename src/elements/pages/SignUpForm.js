@@ -19,7 +19,7 @@ const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
 const PHONE_REGEX  = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const REGISTER_URL = '/sign-up';
+const REGISTER_URL = '/api/auth';
 
 function SignUpForm() {
   const navigate = useNavigate();
@@ -135,9 +135,9 @@ function SignUpForm() {
         setPwd('');
         setMatchPwd('');
 
-        sessionStorage.setItem('is-authorized', true);
-        setAuth(true);
-        navigate('/feed');
+        //sessionStorage.setItem('is-authorized', true);
+        //setAuth(true);
+        navigate('/sign_in');
     } catch (err) {
         if (!err?.response) {
             setErrMsg('No Server Response');

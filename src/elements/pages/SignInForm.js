@@ -8,11 +8,11 @@ import {
 import {useAuth} from '../../context/AuthContext.js'
 import axios from '../../api/axios.js';
 
-const LOGIN_URL = '/sign-in';
+const LOGIN_URL = '/api/auth/login';
 
 function SignInForm() {
   const navigate = useNavigate();
-  const { setAuth, setAuthUser} = useAuth();
+  const { setAuth, setAuthUser, authUser} = useAuth();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -33,8 +33,12 @@ function SignInForm() {
     e.preventDefault();
 
     try {
+        const input = {
+            email: user,
+            password: pwd
+        }
         const response = await axios.post(LOGIN_URL,
-            JSON.stringify({ user, pwd }),
+            JSON.stringify(input),
             {
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 withCredentials: true
@@ -42,9 +46,11 @@ function SignInForm() {
         );
         console.log(JSON.stringify(response?.data));
         //console.log(JSON.stringify(response));
-        const accessToken = response?.data?.accessToken;
+        const accessToken = response?.data?.token;
         const roles = response?.data?.roles;
+        console.log("TOKEN: " + accessToken);
         setAuthUser({ user, pwd, roles, accessToken });
+        //console.log("SAVED TOKEN: " + authUser.accessToken);
         //sessionStorage.setItem('is-authorized', true);
         setAuth(true);
         navigate('/feed');
