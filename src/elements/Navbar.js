@@ -18,7 +18,7 @@ function Navbar() {
     try {
       const token = authUser.accessToken;
       console.log("Send this:" + token);
-      const response = await axios.get("data",         
+      const response = await axios.post(LOGOUT_URL, "",        
           {
             headers: { 'Authorization': `Bearer ${token}`,
               "access-control-allow-origin" : "*",
