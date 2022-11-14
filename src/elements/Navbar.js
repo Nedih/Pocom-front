@@ -12,11 +12,11 @@ const LOGOUT_URL = '/api/auth/sign-out';
 
 function Navbar() {
   const navigate = useNavigate();
-  const { setAuth, authUser} = useAuth();
+  const { setAuth, auth} = useAuth();
 
   const logout = async () => {
     try {
-      const token = authUser.accessToken;
+      const token = auth.token;
       console.log("Send this:" + token);
       const response = await axios.post(LOGOUT_URL, "",        
           {
@@ -25,10 +25,14 @@ function Navbar() {
           'Content-Type': 'application/json'  },
             withCredentials: true
           }
-      );
-      console.log(JSON.stringify(response?.data));
-      setAuth(false);
-      navigate('/sign_in');
+      ).then((response) => {
+        console.log(JSON.stringify(response?.data));
+        setAuth({ loggedIn: false, token: ""});
+        window.sessionStorage.setItem('userToken', "")
+        window.sessionStorage.setItem('isAuthorized', false);
+        
+        navigate('/sign_in');
+      });
     }
     catch (err) {
       if (!err?.response) {

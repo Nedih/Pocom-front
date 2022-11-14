@@ -1,5 +1,5 @@
 import './SignUpForm.css';
-import { useRef, useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import {
   NavLink,
   useNavigate,
@@ -12,7 +12,7 @@ const LOGIN_URL = '/api/auth/login';
 
 function SignInForm() {
   const navigate = useNavigate();
-  const { setAuth, setAuthUser, authUser} = useAuth();
+  const { setAuth } = useAuth();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -43,20 +43,26 @@ function SignInForm() {
                 headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 withCredentials: true
             }
-        );
-        console.log(JSON.stringify(response?.data));
-        //console.log(JSON.stringify(response));
-        const accessToken = response?.data?.token;
-        const roles = response?.data?.roles;
-        console.log("TOKEN: " + accessToken);
-        setAuthUser({ user, pwd, roles, accessToken });
-        //console.log("SAVED TOKEN: " + authUser.accessToken);
-        //sessionStorage.setItem('is-authorized', true);
-        setAuth(true);
-        navigate('/feed');
-        setUser('');
-        setPwd('');
-        setSuccess(true);
+        ).then((response) => {
+            console.log(JSON.stringify(response?.data));
+            //console.log(JSON.stringify(response));
+            const accessToken = response?.data?.token;
+            const roles = response?.data?.roles;
+            console.log("TOKEN: " + accessToken);
+            //const loggedUser = { user, pwd, roles, accessToken }
+            //console.log(loggedUser);
+            window.sessionStorage.setItem('userToken', accessToken?.toString());
+            window.sessionStorage.setItem('isAuthorized', true);
+            const loggedUser = { loggedIn: true, token: accessToken?.toString()}
+            setAuth(loggedUser);
+            //console.log("SAVED TOKEN: " + authUser.accessToken);
+            //sessionStorage.setItem('is-authorized', true);
+            
+            navigate('/feed');
+            setUser('');
+            setPwd('');
+            setSuccess(true);
+        })
     } catch (err) {
         if (!err?.response) {
             setErrMsg('No Server Response');

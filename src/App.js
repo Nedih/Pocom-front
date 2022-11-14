@@ -15,7 +15,7 @@ function App() {
   return (
     <div className="App">
       <Router>
-        {auth ? <Navbar /> : <NotAuthNavbar />}
+        {auth.loggedIn ? <Navbar /> : <NotAuthNavbar />}
         <AppRoutes/>
       </Router>
     </div>
