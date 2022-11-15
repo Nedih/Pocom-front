@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import data from './data/posts.json'
+import FeedItem from './FeedItem';
 import Pagination from './Pagination';
 
 export class Feed extends Component {
   state = {
     posts: data,
     currentPage: 1,
-    postsPerPage: 5
+    postsPerPage: 5,
   };
   componentDidMount() {
     const getPosts = async () => {
@@ -15,8 +16,8 @@ export class Feed extends Component {
 
     getPosts();
   }
-  render() {
-    
+
+  render() {   
     const { currentPage, postsPerPage, posts } = this.state;
 
     const indexOfLastPost = currentPage * postsPerPage;
@@ -31,11 +32,8 @@ export class Feed extends Component {
 
     return (
       <div className='container mt-5'>
-        {posts.slice(indexOfFirstPost,indexOfLastPost).map(post => (
-          <div key={post.id} className="alert alert-primary">
-            <h4 className="alert-heading">{post.title}</h4>
-            <p>{post.body}</p>
-          </div>
+        {currentPosts.map(post => (
+          <FeedItem post={post}/>
         ))}
         <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
       </div>
