@@ -4,12 +4,12 @@ import {
   NavLink,
   useNavigate,
 } from "react-router-dom";
-import {useAuth} from '../AuthContext.js'
+import {useAuth} from '../../context/AuthContext.js'
 import DatePicker from "react-datepicker";
 import PhoneInput from 'react-phone-number-input'
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from "../api/axios.js";
+import axios from "../../api/axios.js";
 
 import './SignUpForm.css';
 import "react-datepicker/dist/react-datepicker.css";
@@ -20,7 +20,7 @@ const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
 const PHONE_REGEX  = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-const REGISTER_URL = '/register';
+const REGISTER_URL = '/api/auth';
 
 function SignUpForm() {
   const { i18n } = useTranslation();
@@ -108,8 +108,17 @@ function SignUpForm() {
         return;
     }
     try {
-        /*const response = await axios.post(REGISTER_URL,
-            JSON.stringify({ name, username, pwd }),
+        const newUser = {
+          Email: email,
+          Name: name,
+          Login: username,
+          DateOfBirth: date,
+          PhoneNumber: phone,
+          Password: pwd,
+          PasswordConfirm: matchPwd
+        }
+        const response = await axios.post(REGISTER_URL,
+            JSON.stringify(newUser),
             {
                 headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
@@ -117,7 +126,7 @@ function SignUpForm() {
         );
         console.log(response?.data);
         console.log(response?.accessToken);
-        console.log(JSON.stringify(response))*/
+        console.log(JSON.stringify(response))
         setSuccess(true);
 
         setUsername('');
@@ -128,9 +137,9 @@ function SignUpForm() {
         setPwd('');
         setMatchPwd('');
 
-        sessionStorage.setItem('is-authorized', true);
-        setAuth(true);
-        navigate('/feed');
+        //sessionStorage.setItem('is-authorized', true);
+        //setAuth(true);
+        navigate('/sign_in');
     } catch (err) {
         if (!err?.response) {
             setErrMsg('No Server Response');
