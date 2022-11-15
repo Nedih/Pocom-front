@@ -156,10 +156,10 @@ function SignUpForm() {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Register</h1>
+                    <h1>{i18n.t('Register')}</h1>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="name">
-                            Name:
+                            {i18n.t('Name')}:
                             <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validName || !name ? "hide" : "invalid"} />
                         </label>
@@ -178,13 +178,13 @@ function SignUpForm() {
                         />
                         <p id="uidnote" className={nameFocus && name && !validName ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 50 characters.<br />
-                            Must begin with a letter.<br />
-                            Letters, spaces, hyphens allowed.
+                            {i18n.t('NameCharNumber')}.<br />
+                            {i18n.t('NameFirstChar')}.<br />
+                            {i18n.t('NameCharsAllowed')}.
                         </p>
 
                         <label htmlFor="username">
-                            Username:
+                            {i18n.t('Username')}:
                             <FontAwesomeIcon icon={faCheck} className={validUsername ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validUsername || !username ? "hide" : "invalid"} />
                         </label>
@@ -203,13 +203,13 @@ function SignUpForm() {
                         />
                         <p id="uidnote" className={usernameFocus && username && !validUsername ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            4 to 24 characters.<br />
-                            Must begin with a letter.<br />
-                            Letters, numbers, underscores, hyphens allowed.
+                            {i18n.t('UsernameCharNumber')}.<br />
+                            {i18n.t('UsernameFirstChar')}.<br />
+                            {i18n.t('UsernameCharsAllowed')}.
                         </p>
 
                         <label htmlFor="email">
-                            Email:
+                            {i18n.t('Email')}:
                             <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
                         </label>
@@ -227,7 +227,7 @@ function SignUpForm() {
                         />
 
                         <label htmlFor="date">
-                            Birth Date:
+                            {i18n.t('Birth Date')}:
                             <FontAwesomeIcon icon={faCheck} className={validDate ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validDate || !date ? "hide" : "invalid"} />
                         </label>
@@ -236,7 +236,7 @@ function SignUpForm() {
                           aria-describedby="uidnote"/>
                         
                         <label htmlFor="phone">
-                            Phone:
+                            {i18n.t('Phone')}:
                             <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
                         </label>
@@ -254,7 +254,7 @@ function SignUpForm() {
                         />
 
                         <label htmlFor="password">
-                            Password:
+                            {i18n.t('Password')}:
                             <FontAwesomeIcon icon={faCheck} className={validPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validPwd || !pwd ? "hide" : "invalid"} />
                         </label>
@@ -271,13 +271,13 @@ function SignUpForm() {
                         />
                         <p id="pwdnote" className={pwdFocus && !validPwd ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            8 to 24 characters.<br />
-                            Must include uppercase and lowercase letters, a number and a special character.<br />
-                            Allowed special characters: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span>
+                            {i18n.t('PasswordCharNumber')}.<br />
+                            {i18n.t('PasswordRequiredChars')}.<br />
+                            {i18n.t('PasswordSpecialCharacters')}: <span aria-label="exclamation mark">!</span> <span aria-label="at symbol">@</span> <span aria-label="hashtag">#</span> <span aria-label="dollar sign">$</span> <span aria-label="percent">%</span> <span aria-label="upper case">_</span>
                         </p>
 
                         <label htmlFor="confirm_pwd">
-                            Confirm Password:
+                            {i18n.t('Confirm Password')}:
                             <FontAwesomeIcon icon={faCheck} className={validMatch && matchPwd ? "valid" : "hide"} />
                             <FontAwesomeIcon icon={faTimes} className={validMatch || !matchPwd ? "hide" : "invalid"} />
                         </label>
@@ -294,13 +294,13 @@ function SignUpForm() {
                         />
                         <p id="confirmnote" className={matchFocus && !validMatch ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            Must match the first password input field.
+                            {i18n.t('ConfirmPasswordException')}
                         </p>
 
                         <button disabled={!validUsername || !validName || !validEmail || !validDate || !validPwd || !validMatch ? true : false}>{i18n.t('Sign Up')}</button>
                     </form>
                     <p>
-                        Already registered?<br />
+                        {i18n.t('Already registered?')}<br />
                         <span className="line">
                         <NavLink to='/sign_in'>{i18n.t('Sign In')}</NavLink>
                         </span>

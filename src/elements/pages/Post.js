@@ -1,11 +1,10 @@
 import "./Post.css"
+import { useParams } from "react-router-dom";
+import PostContent from '../../components/PostContent';
 
-export default function Profile(){
-
-    return(
-        <div className="post">
-            <img width="100%" src="https://webcolours.ca/wp-content/uploads/2020/10/webcolours-unknown.png" />
-            <h>Text</h>
-        </div>
+export default function Profile() {
+    const { postId } = useParams();
+    return (
+        <PostContent id={postId} />
     )
 }

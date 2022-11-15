@@ -29,8 +29,7 @@ body {
   min-height: 100vh; 
   padding: 1rem 0.5rem;
 }*/
-
-section {
+.SignUpForm section {
     width: 100%;
     /*max-width: 420px;*/
     min-height: 400px;
@@ -42,7 +41,7 @@ section {
     background-color: rgba(0,0,0,0.4);
 }
 
-form {
+.SignUpForm form {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -50,26 +49,26 @@ form {
     padding-bottom: 1rem;
 }
 
-a, a:visited {
+.SignUpForm a, .SignUpForm a:visited {
     color: #fff;
 }
 
-input[type="text"],
-input[type="password"],
-button,
-textarea {
+.SignUpForm input[type="text"],
+.SignUpForm input[type="password"],
+.SignUpForm button,
+.SignUpForm textarea {
   font-family: 'Nunito', sans-serif;
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
 }
 
-label,
-button {
+.SignUpForm label,
+.SignUpForm button {
   margin-top: 1rem;
 }
 
-button {
+.SignUpForm button {
   padding: 0.5rem;
 }
 
@@ -116,4 +115,8 @@ button {
 
 .line {
     display: inline-block;
+}
+
+#date {
+    width: 100%;
 }

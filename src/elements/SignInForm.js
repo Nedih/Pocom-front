@@ -81,7 +81,7 @@ function SignInForm() {
             ) : (
                 <section>
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
-                    <h1>Sign In</h1>
+                    <h1>{i18n.t('Sign In (header)')}</h1>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="username">{i18n.t('Username:')}</label>
                         <input
@@ -94,7 +94,7 @@ function SignInForm() {
                             required
                         />
 
-                        <label htmlFor="password">{i18n.t('Password:')}</label>
+                        <label htmlFor="password">{i18n.t('Password')}:</label>
                         <input
                             type="password"
                             id="password"
@@ -105,7 +105,8 @@ function SignInForm() {
                         <button>{i18n.t('Sign In')}</button>
                     </form>
                     <p>
-                        Need an Account?<br />
+                        {i18n.t('Need an Account?')}
+                        <br />
                         <span className="line">
                         <NavLink to='/sign_up'>{i18n.t('Sign Up')}</NavLink>
                         </span>

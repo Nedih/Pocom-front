@@ -32,11 +32,8 @@ export class Feed extends Component {
 
     return (
       <div className='container mt-5'>
-        {posts.slice(indexOfFirstPost,indexOfLastPost).map(post => (
-          <div>
-            <FeedItem post={post} />
-            
-          </div>
+        {currentPosts.map(post => (
+          <FeedItem post={post}/>
         ))}
         <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
       </div>

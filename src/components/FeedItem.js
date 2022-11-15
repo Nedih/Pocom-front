@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
 
 export class FeedItem extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
         this.handleClick = this.handleClick.bind(this);
-      }
+    }
 
     state = {
         clicked: false,
     };
-    
-    handleClick(){
+
+    handleClick() {
         console.log(this.clicked);
         this.setState({ clicked: true });
         console.log(this.clicked);
-    }  
+    }
 
     render() {
         const { post } = this.props;
@@ -23,14 +23,14 @@ export class FeedItem extends Component {
 
         return (
             <>
-            {clicked && (
-                <Navigate to={`/post/${post.id}`} replace={true} />
-            )}
-              
-            <div key={post.id} className="alert alert-primary" onClick={this.handleClick}>
-                <h4 className="alert-heading">{post.title}</h4>
-                <p>{post.body}</p>
-            </div>
+                {clicked && (
+                    <Navigate to={`/post/${post.id}`} replace={true} />
+                )}
+
+                <div key={post.id} className="alert alert-primary" onClick={this.handleClick}>
+                    <h4 className="alert-heading">{post.title}</h4>
+                    <p>{post.body}</p>
+                </div>
             </>
         )
     }

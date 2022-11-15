@@ -4,6 +4,26 @@
     "Log out": "Вийти",
     "Sign In": "Увійти",
     "Sign Up": "Зареєструватись",
-    "Username:": "Псевдонім:",
-    "Password:": "Пароль:"
+    "Username": "Нікнейм",
+    "Password": "Пароль",
+    "Need an Account?": "Потрібен аккаунт?",
+    "Sign In (header)": "Вхід до аккаунту",
+    "Already registered?": "Вже зареєстровані?",
+    "ConfirmPasswordException": "Це поле повинне збігатись із полем введення паролю.",
+    "Confirm Password": "Підтвердження Паролю",
+    "PasswordCharNumber": "Від 8 до 24 символів",
+    "PasswordRequiredChars": "Пароль обов'язково повинен включати велику та малу літеру, цифру та спеціальний символ",
+    "PasswordSpecialCharacters": "Дозволені спеціальні символи",
+    "Phone": "Номер Телефону",
+    "Birth Date": "Дата Народження",
+    "Email": "Електронна Пошта",
+    "UsernameCharNumber": "Від 4 до 24 символів",
+    "UsernameFirstChar": "Має починатись із літери",
+    "UsernameCharsAllowed": "Літери, цифри, нижні підкреслювання, дефізи дозволені",
+    "Name": "Ім'я",
+    "Register": "Реєстрація",
+    "NameCharNumber": "Від 4 до 50 символів",
+    "NameFirstChar": "Має починатись із великої літери",
+    "NameCharsAllowed": "Літери, пробіли, дефізи дозволені"
+
 }
