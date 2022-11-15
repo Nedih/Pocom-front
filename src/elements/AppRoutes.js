@@ -3,11 +3,11 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import SignUpForm from '../elements/pages/SignUpForm.js'
-import SignInForm from '../elements/pages/SignInForm.js'
+import SignUpForm from './SignUpForm.js'
+import SignInForm from './SignInForm.js'
 import Feed from '../components/Feed.js'
-import Profile from '../elements/pages/Profile.js'
-import Post from '../elements/pages/Post.js'
+import Profile from './pages/Profile.js'
+import Post from './pages/Post.js'
 
 export default function AppRoutes() {
   return (

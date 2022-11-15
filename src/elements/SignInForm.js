@@ -1,20 +1,20 @@
 import './SignUpForm.css';
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import { useRef, useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   NavLink,
   useNavigate,
 } from "react-router-dom";
 
-import {useAuth} from '../../context/AuthContext.js'
-import axios from '../../api/axios.js';
+import {useAuth} from '../AuthContext.js'
+import axios from '../api/axios.js';
 
-const LOGIN_URL = '/api/auth/login';
+const LOGIN_URL = '/auth';
 
 function SignInForm() {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
-  const { setAuth } = useAuth();
+  const { setAuth} = useAuth();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -35,36 +35,24 @@ function SignInForm() {
     e.preventDefault();
 
     try {
-        const input = {
-            email: user,
-            password: pwd
-        }
-        const response = await axios.post(LOGIN_URL,
-            JSON.stringify(input),
+        /*const response = await axios.post(LOGIN_URL,
+            JSON.stringify({ user, pwd }),
             {
-                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+                headers: { 'Content-Type': 'application/json' },
                 withCredentials: true
             }
-        ).then((response) => {
-            console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
-            const accessToken = response?.data?.token;
-            const roles = response?.data?.roles;
-            console.log("TOKEN: " + accessToken);
-            //const loggedUser = { user, pwd, roles, accessToken }
-            //console.log(loggedUser);
-            window.sessionStorage.setItem('userToken', accessToken?.toString());
-            window.sessionStorage.setItem('isAuthorized', true);
-            const loggedUser = { loggedIn: true, token: accessToken?.toString()}
-            setAuth(loggedUser);
-            //console.log("SAVED TOKEN: " + authUser.accessToken);
-            //sessionStorage.setItem('is-authorized', true);
-            
-            navigate('/feed');
-            setUser('');
-            setPwd('');
-            setSuccess(true);
-        })
+        );
+        console.log(JSON.stringify(response?.data));
+        //console.log(JSON.stringify(response));
+        const accessToken = response?.data?.accessToken;
+        const roles = response?.data?.roles;*/
+        //setAuth({ user, pwd, roles, accessToken });
+        sessionStorage.setItem('is-authorized', true);
+        setAuth(true);
+        navigate('/feed');
+        setUser('');
+        setPwd('');
+        setSuccess(true);
     } catch (err) {
         if (!err?.response) {
             setErrMsg('No Server Response');
