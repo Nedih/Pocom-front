@@ -12,7 +12,6 @@ import axios from "../../api/axios.js";
 
 import './SignUpForm.css';
 import "react-datepicker/dist/react-datepicker.css";
-import 'react-phone-number-input/style.css'
 
 const NAME_REGEX = /^[A-Z][A-z" "-]{3,49}$/;
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;

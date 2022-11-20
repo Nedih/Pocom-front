@@ -2,20 +2,25 @@ import React, {useState, useEffect} from "react";
 import './Profile.css';
 import Feed from "../../components/Feed";
 import axios from '../../api/axios.js';
+import {useAuth} from '../../context/AuthContext'
 
 const PROFILE_URL = '/api/user/profile';
 
 export default function Profile(){
-    const [user, setUser] = useState({})
+    const [user, setUser] = useState({});
+    const { auth } = useAuth();
 
     useEffect(() => {
         getUserProfile();
       }, []);
 
     async function getUserProfile(){
+        const token = auth.token;
         await axios.get(PROFILE_URL,
             {
-                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+                headers: { 'Authorization': `Bearer ${token}`,
+                    "access-control-allow-origin" : "*",
+                    'Content-Type': 'application/json'  },
                 withCredentials: true
             }
         ).then((response) => {
@@ -31,8 +36,8 @@ export default function Profile(){
                     <div className="btnContainer"><button className="editBtn">Edit Profile</button></div>
                 </div>
                 <div className="profileNames">
-                    <p>Name: {user.Name}</p>
-                    <p>Username: {user.Login}</p>
+                    <p>Name: {user.name}</p>
+                    <p>Username: {user.login}</p>
                 </div>
                 <br />
 
