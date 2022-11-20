@@ -1,9 +1,27 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import './Profile.css';
-import FeedItem from "../../components/FeedItem";
 import Feed from "../../components/Feed";
+import axios from '../../api/axios.js';
+
+const PROFILE_URL = '/api/user/profile';
 
 export default function Profile(){
+    const [user, setUser] = useState({})
+
+    useEffect(() => {
+        getUserProfile();
+      }, []);
+
+    async function getUserProfile(){
+        await axios.get(PROFILE_URL,
+            {
+                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
+                withCredentials: true
+            }
+        ).then((response) => {
+            setUser(response.data);
+        })
+    }
 
     return(
         <div>
@@ -13,8 +31,8 @@ export default function Profile(){
                     <div className="btnContainer"><button className="editBtn">Edit Profile</button></div>
                 </div>
                 <div className="profileNames">
-                    <p>Name</p>
-                    <p>Username</p>
+                    <p>Name: {user.Name}</p>
+                    <p>Username: {user.Login}</p>
                 </div>
                 <br />
 
