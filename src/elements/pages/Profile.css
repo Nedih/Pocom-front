@@ -8,6 +8,10 @@
     text-align: start;
 }
 
+.profile.edit{
+    background-color: rgb(83, 83, 83);
+}
+
 .profile p {
     font-size: 20pt;
     margin: 15px;

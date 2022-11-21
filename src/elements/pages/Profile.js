@@ -2,12 +2,15 @@ import React, {useState, useEffect} from "react";
 import './Profile.css';
 import Feed from "../../components/Feed";
 import axios from '../../api/axios.js';
+import ProfileInfo from "../ProfileInfo";
+import EditProfileInfo from "../EditProfileInfo";
 import {useAuth} from '../../context/AuthContext'
 
 const PROFILE_URL = '/api/user/profile';
 
 export default function Profile(){
     const [user, setUser] = useState({});
+    const [editMode, setEditMode] = useState(false);
     const { auth } = useAuth();
 
     useEffect(() => {
@@ -28,20 +31,22 @@ export default function Profile(){
         })
     }
 
-    return(
-        <div>
-            <div className="profile">
-                <div className="row">
-                    <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png" width="105px"/> 
-                    <div className="btnContainer"><button className="editBtn">Edit Profile</button></div>
-                </div>
-                <div className="profileNames">
-                    <p>Name: {user.name}</p>
-                    <p>Username: {user.login}</p>
-                </div>
-                <br />
+    function updateUser(updatedUser){
+        setUser(updatedUser);
+    }
 
-            </div>
+    function updateMode(mode){
+        setEditMode(mode);
+    }
+
+    return(
+        <div> 
+            {editMode ?           
+            (
+                <EditProfileInfo user={user} updateUser={updateUser} updateMode={updateMode}/> 
+            ) : (
+                <ProfileInfo user={user} updateUser={updateUser} updateMode={updateMode}/>
+            ) }
             <div className="feed">
                 <Feed />
             </div>
