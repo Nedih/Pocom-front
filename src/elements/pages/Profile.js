@@ -9,9 +9,10 @@ import {useAuth} from '../../context/AuthContext'
 const PROFILE_URL = '/api/user/profile';
 
 export default function Profile(){
+    const { auth } = useAuth();
+
     const [user, setUser] = useState({});
     const [editMode, setEditMode] = useState(false);
-    const { auth } = useAuth();
 
     useEffect(() => {
         getUserProfile();
