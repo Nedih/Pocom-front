@@ -7,15 +7,18 @@ import EditProfileInfo from "../EditProfileInfo";
 import {useAuth} from '../../context/AuthContext'
 
 const PROFILE_URL = '/api/user/profile';
+const POSTS_URL = '/api/v1/Posts/ownposts';
 
 export default function Profile(){
     const { auth } = useAuth();
 
     const [user, setUser] = useState({});
     const [editMode, setEditMode] = useState(false);
+    const [posts, setPosts] = useState([{}]);
 
     useEffect(() => {
         getUserProfile();
+        getUserPosts();
       }, []);
 
     async function getUserProfile(){
@@ -29,6 +32,21 @@ export default function Profile(){
             }
         ).then((response) => {
             setUser(response.data);
+        })
+    }
+
+    async function getUserPosts(){
+        const token = auth.token;
+        await axios.get(POSTS_URL,
+            {
+                headers: { 'Authorization': `Bearer ${token}`,
+                    "access-control-allow-origin" : "*",
+                    'Content-Type': 'application/json'  },
+                withCredentials: true
+            }
+        ).then((response) => {
+            console.log(JSON.stringify(response.data));
+            setPosts(response.data);
         })
     }
 

@@ -3,26 +3,53 @@ import { useTranslation } from 'react-i18next';
 //import './ProfileInfo.css';
 import axios from '../api/axios.js';
 import {useAuth} from '../context/AuthContext'
-import { Button,Modal } from 'react-bootstrap';  
+import { Button } from 'react-bootstrap';  
+import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import EmailChangeModal from "./modal/EmailChangeModal.js";
+import PasswordChangeModal from "./modal/PasswordChangeModal.js";
 
 const PUT_PROFILE_URL = '/api/user/profile';
-const PUT_EMAIL_URL = '/api/user/email';
-const PUT_PASSWORD_URL = '/api/user/password';
+
+const NAME_REGEX = /^[A-Z][A-z" "-]{3,49}$/;
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const PHONE_REGEX  = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
 export default function EditProfileInfo(props){
     const { i18n } = useTranslation();
     const { auth } = useAuth();
 
     const [login, setLogin] = useState(props.user.login);
+    const [validLogin, setValidLogin] = useState(false);
+
     const [name, setName] = useState(props.user.name);
+    const [validName, setValidName] = useState(false);
+
     const [phone, setPhone] = useState(props.user.phoneNumber);
+    const [validPhone, setValidPhone] = useState(false);
+
     const [dateOfBirth, setDateOfBirth] = useState(props.user.dateOfBirth); 
-    const [email, setEmail] = useState("");
-    const [currentPassword, setCurrentPassword] = useState("");
-    const [newPassword, setNewPassword] = useState("");
+    const [validDateOfBirth, setValidDateOfBirth] = useState(false);
 
     const [showEmail, setShowEmail] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+
+    useEffect(() => {
+        setValidLogin(USER_REGEX.test(login));
+    }, [login])
+  
+    useEffect(() => {
+      setValidName(NAME_REGEX.test(name));
+    }, [name])
+  
+    useEffect(() => {
+      console.log((new Date().getFullYear()) - new Date(dateOfBirth).getFullYear());
+      setValidDateOfBirth((new Date().getFullYear()) - new Date(dateOfBirth).getFullYear() >= 14);
+    }, [dateOfBirth])
+  
+    useEffect(() => {
+      setValidPhone(PHONE_REGEX.test(phone));
+    }, [phone])
 
     const handleSubmit = async () => {
         const updatedUser = {
@@ -46,45 +73,12 @@ export default function EditProfileInfo(props){
         })
     }
 
-    const emailEdit = async () => {
-        const updatedEmail = {
-            email: email
-        }
-
-        const token = auth.token;
-        /*await axios.put(PUT_EMAIL_URL, JSON.stringify(updatedEmail),
-            {
-                headers: { 'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin" : "*",
-                    'Content-Type': 'application/json'  },
-                withCredentials: true
-            }
-        ).then((response) => {
-            if(response.status == 200)
-                setShowEmail(false);
-        })*/
-        setShowEmail(false);
+    const changeShowEmail = (bool) => {
+        setShowEmail(bool);
     }
 
-    const passwordChange = async () => {
-        const updatedPassword = {
-            currentPassword: currentPassword, 
-            newPassword: newPassword
-        }
-
-        const token = auth.token;
-        /*await axios.put(PUT_PASSWORD_URL, JSON.stringify(updatedPassword),
-            {
-                headers: { 'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin" : "*",
-                    'Content-Type': 'application/json'  },
-                withCredentials: true
-            }
-        ).then((response) => {
-            if(response.status == 200)
-                setShowPassword(false);
-        })*/
-        setShowPassword(false);
+    const changeShowPwd = (bool) => {
+        setShowPassword(bool);
     }
 
     return(
@@ -92,49 +86,70 @@ export default function EditProfileInfo(props){
             <div className="row">
                 <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png" width="105px"/> 
                 <div className="btnContainer">
-                    <Button className="emailBtn" onClick={() => setShowEmail(true)}>Change Email</Button>
-                    <Button className="passwordBtn" onClick={() => setShowEmail(true)}>Change Password</Button>
-                    <button className="editBtn" onClick={handleSubmit}>Save Changes</button>
+                    <Button className="emailBtn" onClick={() => setShowEmail(true)}>{i18n.t('ChangeEmailBtn')}</Button>
+                    <Button className="passwordBtn" onClick={() => setShowPassword(true)}>{i18n.t('ChangePwdBtn')}</Button>
+                    <button className="editBtn" onClick={handleSubmit}>{i18n.t('Save')}</button>
                 </div>
             </div>
             <div className="profileNames">
                 <p>Name: {props.user.name}</p>
                 <p>Username: {props.user.login}</p>
-                <label for="name">{i18n.t('Name')}:</label><br/>
-                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)}/><br/>
-                <label for="login">{i18n.t('Username')}:</label><br/>
-                <input type="text" id="login" value={login} onChange={(e) => setLogin(e.target.value)}/><br/> 
-                <label for="phone">{i18n.t('Phone')}:</label><br/>           
-                <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)}/><br/>
-                <label for="dateOfBirth">{i18n.t('Birth Date')}:</label><br/>
-                <input type="date" id="dateOfBirth" value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/><br/>
+                <label for="name">
+                    {i18n.t('Name')}:
+                    <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
+                    <FontAwesomeIcon icon={faTimes} className={validName || !name ? "hide" : "invalid"} />
+                </label><br/>
+                <input 
+                    type="text"
+                    id="name" 
+                    value={name} 
+                    onChange={(e) => setName(e.target.value)}
+                    aria-invalid={validName ? "false" : "true"}
+                    aria-describedby="uidnote"
+                /><br/>
+                <label for="login">
+                    {i18n.t('Username')}:
+                    <FontAwesomeIcon icon={faCheck} className={validLogin ? "valid" : "hide"} />
+                    <FontAwesomeIcon icon={faTimes} className={validLogin || !login ? "hide" : "invalid"} />
+                </label><br/>
+                <input 
+                    type="text" 
+                    id="login" 
+                    value={login} 
+                    onChange={(e) => setLogin(e.target.value)}
+                    aria-invalid={validLogin ? "false" : "true"}
+                    aria-describedby="uidnote"
+                /><br/> 
+                <label for="phone">
+                    {i18n.t('Phone')}:
+                    <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
+                    <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
+                </label><br/>           
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    value={phone} 
+                    onChange={(e) => setPhone(e.target.value)}
+                    aria-invalid={validPhone ? "false" : "true"}
+                    aria-describedby="uidnote"
+                /><br/>
+                <label for="dateOfBirth">
+                    {i18n.t('Birth Date')}:
+                    <FontAwesomeIcon icon={faCheck} className={validDateOfBirth ? "valid" : "hide"} />
+                    <FontAwesomeIcon icon={faTimes} className={validDateOfBirth || !dateOfBirth ? "hide" : "invalid"} />
+                </label><br/>
+                <input 
+                    type="date" 
+                    id="dateOfBirth" 
+                    value={dateOfBirth} 
+                    onChange={(e) => setDateOfBirth(e.target.value)}
+                    aria-invalid={validDateOfBirth ? "false" : "true"}
+                    aria-describedby="uidnote"
+                /><br/>
             </div>
             <br />
-            <Modal show={showEmail}>  
-                <Modal.Header closeButton>Email</Modal.Header>  
-                <Modal.Body>
-                    This is a Modal Body<br/>
-                    <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                </Modal.Body>  
-                <Modal.Footer>  
-                    <Button onClick={()=>setShowEmail(false)}>Close</Button>  
-                    <Button onClick={emailEdit}>Save</Button>  
-                </Modal.Footer>  
-            </Modal>  
-            <Modal show={showPassword}>  
-                <Modal.Header closeButton>Password</Modal.Header>  
-                <Modal.Body>
-                    This is a Modal Body<br/>
-                    <label for="curPwd">{i18n.t('Current Password')}:</label><br/>
-                    <input type="password" id="curPwd" value={currentPassword} onChange={(e) => setCurrentPassword(e.target.value)}/><br/>
-                    <label for="newPwd">{i18n.t('New Password')}:</label><br/>
-                    <input type="password" id="newPwd" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}/><br/>
-                </Modal.Body>  
-                <Modal.Footer>  
-                    <Button onClick={()=>setShowPassword(false)}>Close</Button>  
-                    <Button onClick={passwordChange}>Save</Button>  
-                </Modal.Footer>  
-            </Modal>  
+            <EmailChangeModal showEmail={showEmail} setShowEmail={changeShowEmail} />
+            <PasswordChangeModal showPassword={showPassword} setShowPassword={changeShowPwd} />  
         </div>
     );
 }

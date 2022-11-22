@@ -24,6 +24,15 @@
     "Register": "Реєстрація",
     "NameCharNumber": "Від 4 до 50 символів",
     "NameFirstChar": "Має починатись із великої літери",
-    "NameCharsAllowed": "Літери, пробіли, дефізи дозволені"
-
+    "NameCharsAllowed": "Літери, пробіли, дефізи дозволені",
+    "Current Password": "Поточний Пароль",
+    "New Password": "Новий Пароль",
+    "Close": "Закрити",
+    "Save": "Зберегти",
+    "New Email": "Нова Ел. Пошта",
+    "Change Email": "Зміна Ел. Пошти",
+    "Change Password": "Зміна Паролю",
+    "ChangeEmailBtn": "Змінити Ел. Пошту",
+    "ChangePwdBtn": "Змінити Пароль",
+    "": ""
 }
