@@ -11,8 +11,6 @@ import { useTranslation } from 'react-i18next';
 
 const LOGOUT_URL = '/api/auth/sign-out';
 
-
-
 const lngs = {
   en: { nativeName: 'English' },
   ua: { nativeName: 'Ukrainian' }

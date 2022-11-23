@@ -47,18 +47,14 @@ function SignInForm() {
             }
         ).then((response) => {
             console.log(JSON.stringify(response?.data));
-            //console.log(JSON.stringify(response));
             const accessToken = response?.data?.token;
-            const roles = response?.data?.roles;
             console.log("TOKEN: " + accessToken);
-            //const loggedUser = { user, pwd, roles, accessToken }
-            //console.log(loggedUser);
+
             window.sessionStorage.setItem('userToken', accessToken?.toString());
             window.sessionStorage.setItem('isAuthorized', true);
+            
             const loggedUser = { loggedIn: true, token: accessToken?.toString()}
             setAuth(loggedUser);
-            //console.log("SAVED TOKEN: " + authUser.accessToken);
-            //sessionStorage.setItem('is-authorized', true);
             
             navigate('/feed');
             setUser('');
@@ -95,7 +91,7 @@ function SignInForm() {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>{i18n.t('Sign In (header)')}</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">{i18n.t('Username:')}</label>
+                        <label htmlFor="username">{i18n.t('Email')}</label>
                         <input
                             type="text"
                             id="username"

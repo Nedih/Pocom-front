@@ -4,16 +4,13 @@ import {
   NavLink,
   useNavigate,
 } from "react-router-dom";
-import {useAuth} from '../../context/AuthContext.js'
 import DatePicker from "react-datepicker";
-import PhoneInput from 'react-phone-number-input'
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "../../api/axios.js";
 
 import './SignUpForm.css';
 import "react-datepicker/dist/react-datepicker.css";
-import 'react-phone-number-input/style.css'
 
 const NAME_REGEX = /^[A-Z][A-z" "-]{3,49}$/;
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -25,7 +22,6 @@ const REGISTER_URL = '/api/auth';
 function SignUpForm() {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
-  const { setAuth} = useAuth();
   
   const usernameRef = useRef();
   const errRef = useRef();
@@ -43,7 +39,6 @@ function SignUpForm() {
 
   const [date, setDate] = useState(new Date());
   const [validDate, setValidDate] = useState(false);
-  //const [nameFocus, setNameFocus] = useState(false);
 
   const [phone, setPhone] = useState('');
   const [validPhone, setValidPhone] = useState(false);
@@ -231,8 +226,6 @@ function SignUpForm() {
                             required
                             aria-invalid={validEmail ? "false" : "true"}
                             aria-describedby="uidnote"
-                            //onFocus={() => setEmailFocus(true)}
-                            //onBlur={() => setEmailFocus(false)}
                         />
 
                         <label htmlFor="date">

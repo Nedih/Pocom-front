@@ -25,9 +25,15 @@
     "NameCharNumber": "4 to 50 characters",
     "NameFirstChar": "Must begin with a letter",
     "NameCharsAllowed": "Letters, spaces, hyphens allowed",
-    "": "",
-    "": "",
-    "": "",
-    "": ""
-
+    "Current Password": "Current Password",
+    "New Password": "New Password",
+    "Close": "Close",
+    "Save": "Save",
+    "New Email": "New Email",
+    "Change Email": "Change Email",
+    "Change Password": "Change Password",
+    "ChangeEmailBtn": "Change Email",
+    "ChangePwdBtn": "Change Password",
+    "ChangeImageBtn": "Update Image",
+    "Change Avatar": "Image Update"
 }
