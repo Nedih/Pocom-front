@@ -35,6 +35,7 @@ export class Feed extends Component {
         {currentPosts.map(post => (
           <FeedItem post={post}/>
         ))}
+        <br/>
         <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} nextPage={nextPage} prevPage={prevPage}/>
       </div>
     )

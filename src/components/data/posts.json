@@ -5,7 +5,14 @@
     "title": "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
     "body": "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
     "img": "https://webcolours.ca/wp-content/uploads/2020/10/webcolours-unknown.png",
-    "date": "14/11/2022"
+    "date": "14.11.2022",
+    "comments":[
+      {
+        "Author":"XQFech",
+        "Text": "comment",
+        "date": "14.11.2022"
+      }
+    ]
   },
   {
     "userId": 1,

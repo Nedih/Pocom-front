@@ -1,0 +1,51 @@
+.user_image {
+    width: 48px;
+    height: 48px;
+    margin-right: 12px;
+    flex-basis: 48px;
+    border-radius: 50%;
+}
+
+div.post_panel {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    font-size: 15px;
+    line-height: 20px;
+}
+
+div.feed_item {
+    border: 0 solid black;
+    border-bottom-color: rgb(239, 243, 244);
+    border-bottom-width: 1px;
+    padding-top: 16px;
+    padding-left: 16px;
+    padding-right: 16px;
+    flex-direction: row;
+    display: flex;
+    cursor: pointer;
+    text-align: left;
+}
+
+.user_label {
+    color: rgb(15, 20, 25);
+    font-weight: 700;
+}
+
+div.feed_item:hover {
+    background-color: rgb(247, 249, 249);
+
+}
+
+.post_btns {
+    display: flex;
+    margin-top: 12px;
+    column-gap: 8px;
+    justify-content: right;
+    font-size: 15px;
+}
+
+.post_btns span {
+    line-height: 50px;
+    vertical-align: middle;
+}
