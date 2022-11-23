@@ -8,6 +8,7 @@ import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EmailChangeModal from "./modal/EmailChangeModal.js";
 import PasswordChangeModal from "./modal/PasswordChangeModal.js";
+import ImageSelectModal from "./modal/ImageSelectModal.js";
 
 const PUT_PROFILE_URL = '/api/user/profile';
 
@@ -31,8 +32,11 @@ export default function EditProfileInfo(props){
     const [dateOfBirth, setDateOfBirth] = useState(props.user.dateOfBirth); 
     const [validDateOfBirth, setValidDateOfBirth] = useState(false);
 
+    const [image, setImage] = useState(props.user.image || "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png"); 
+
     const [showEmail, setShowEmail] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
+    const [showImage, setShowImage] = useState(false);
 
     useEffect(() => {
         setValidLogin(USER_REGEX.test(login));
@@ -53,23 +57,26 @@ export default function EditProfileInfo(props){
 
     const handleSubmit = async () => {
         const updatedUser = {
-            login: login, 
-            name: name,
-            phoneNumber: phone,
-            dateOfBirth: dateOfBirth
+            Login: login, 
+            Name: name,
+            Image: image,
+            PhoneNumber: phone,
+            DateOfBirth: dateOfBirth
         }
+        console.log(updatedUser);
 
         const token = auth.token;
         await axios.put(PUT_PROFILE_URL, JSON.stringify(updatedUser),
             {
                 headers: { 'Authorization': `Bearer ${token}`,
                     "access-control-allow-origin" : "*",
-                    'Content-Type': 'application/json'  },
+                    'Content-Type': ['application/json', 'multipart/form-data']  },
                 withCredentials: true
             }
         ).then((response) => {
             props.updateUser(updatedUser);
             props.updateMode(false);
+            window.location.reload();
         })
     }
 
@@ -81,10 +88,20 @@ export default function EditProfileInfo(props){
         setShowPassword(bool);
     }
 
+    const changeShowImage = (bool) => {
+        setShowImage(bool);
+    }
+
+    const changeImage = (img) => {
+        setImage(img);
+    }
+
     return(
         <div className="profile edit">
             <div className="row">
-                <img src="https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png" width="105px"/> 
+                <img src={image} width="105px"/> 
+                <ImageSelectModal setImage={changeImage} showImage={showImage} setShowImage={changeShowImage} />
+                <Button className="imageBtn" onClick={() => setShowImage(true)}>{i18n.t('ChangeImageBtn')}</Button>
                 <div className="btnContainer">
                     <Button className="emailBtn" onClick={() => setShowEmail(true)}>{i18n.t('ChangeEmailBtn')}</Button>
                     <Button className="passwordBtn" onClick={() => setShowPassword(true)}>{i18n.t('ChangePwdBtn')}</Button>
