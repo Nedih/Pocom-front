@@ -5,20 +5,14 @@ import Pagination from './Pagination';
 
 export class Feed extends Component {
   state = {
-    posts: data,
     currentPage: 1,
     postsPerPage: 5,
   };
-  componentDidMount() {
-    const getPosts = async () => {
-      this.setState({ posts: data });
-    };
 
-    getPosts();
-  }
+  render() {
+    const { posts } = this.props;
 
-  render() {   
-    const { currentPage, postsPerPage, posts } = this.state;
+    const { currentPage, postsPerPage } = this.state;
 
     const indexOfLastPost = currentPage * postsPerPage;
     const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -29,6 +23,7 @@ export class Feed extends Component {
     const nextPage = () => this.setState({ currentPage: currentPage + 1 });
 
     const prevPage = () => this.setState({ currentPage: currentPage - 1 });
+
 
     return (
       <div className='container mt-5'>

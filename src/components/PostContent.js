@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import data from './data/posts.json'
 import FeedItem from './FeedItem';
 import './PostContent.css'
+import axios from '../../src/api/axios.js';
+
+const POST_URL = '/api/v1/Posts/';
+
 
 export class PostContent extends Component {
     state = {
@@ -9,20 +12,23 @@ export class PostContent extends Component {
     };
     componentDidMount() {
         const { id } = this.props;
-        const getData = async () => {
-            this.setState({
-                post: data.filter((elem) => {
-                    return elem.id == id
-                })[0]
-            });
-        };
-        getData();
+        axios.get(POST_URL+id,
+            {
+                headers: { 
+                    "access-control-allow-origin" : "*",
+                    'Content-Type': 'application/json'  },
+                withCredentials: true
+            }
+        ).then((response) => {
+            this.setState({post:response.data});
+        })
+
     }
     render() {
         const { post } = this.state;
         let image;
-        if (post.img !== undefined) {
-            image = <img class='attach mt-3' alt='img' src={post.img} />
+        if (post.image !== null) {
+            image = <img class='attach mt-3' alt='img' src={post.image} />
         }
         else{
             image = <></>
@@ -33,9 +39,9 @@ export class PostContent extends Component {
                 <div class='post'>
                     <div>
                         <div class='header'>
-                            <img class='avatar' alt='img' src={post.img} />
+                            <img class='avatar' alt='img' src={post.image} />
                             <div className='post_panel inner'>
-                                <h4 className='user_label'>Username</h4>
+                                <p className='user_label'>{post.author}</p>
                                 <span className='options'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
@@ -46,11 +52,11 @@ export class PostContent extends Component {
                         </div>
                     </div>
                     <div class='content'>
-                        <div class='text'>{post?.body}</div>
+                        <div class='text'>{post?.text}</div>
                         
                         {image}
                         <div className='sub_data'>
-                            <div class='mt-3' className="postDate">{post.date}</div>
+                            <div class='mt-3' className="postDate">{post.creationDate}</div>
                             <div className='post_btns'>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
