@@ -1,11 +1,12 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import axios from '../../src/api/axios.js';
 
 const AuthContext = createContext({
   auth: {
     loggedIn: false,
     token: ""
   },
-  setAuth: () => {},
+  setAuth: () => { },
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -15,8 +16,8 @@ const AuthProvider = ({ children }) => {
     loggedIn: JSON.parse(window.sessionStorage.getItem('isAuthorized')),
     token: window.sessionStorage.getItem('userToken')?.toString(),
     refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
-  }); 
-
+  });
+  axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}

@@ -22,8 +22,8 @@ export class FeedItem extends Component {
         const { post } = this.props;
         let { clicked } = this.state;
         let image;
-        if (post.image !== null) {
-            image = <img className='user_image' alt="img" src={post.image} />
+        if (post.authorImage !== null) {
+            image = <img className='user_image' alt="img" src={post.authorImage} />
         }
         else{
             image = <img className='user_image' alt="img" src='https://webcolours.ca/wp-content/uploads/2020/10/webcolours-unknown.png' />
@@ -37,7 +37,7 @@ export class FeedItem extends Component {
                     {image}
                     <div className='w-100'>
                         <div className='post_panel'>
-                            <div className='user_label'>{post.author}</div>
+                            <div className='user_label'>{post.authorUsername}</div>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">
                                     <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
