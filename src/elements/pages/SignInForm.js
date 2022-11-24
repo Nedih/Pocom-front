@@ -1,5 +1,5 @@
 import './SignUpForm.css';
-import React, { useRef, useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   NavLink,
@@ -7,9 +7,7 @@ import {
 } from "react-router-dom";
 
 import {useAuth} from '../../context/AuthContext.js'
-import axios from '../../api/axios.js';
-
-const LOGIN_URL = '/api/auth/login';
+import {signIn} from '../../api/axios.js';
 
 function SignInForm() {
   const { i18n } = useTranslation();
@@ -39,21 +37,17 @@ function SignInForm() {
             email: user,
             password: pwd
         }
-        const response = await axios.post(LOGIN_URL,
-            JSON.stringify(input),
-            {
-                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
-                withCredentials: true
-            }
-        ).then((response) => {
+        const response = await signIn(input).then((response) => {
             console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.token;
+            const accessToken = response?.data?.accessToken;
+            const refreshToken = response?.data?.refreshToken;
             console.log("TOKEN: " + accessToken);
 
             window.sessionStorage.setItem('userToken', accessToken?.toString());
+            window.sessionStorage.setItem('refreshToken', accessToken?.toString());
             window.sessionStorage.setItem('isAuthorized', true);
             
-            const loggedUser = { loggedIn: true, token: accessToken?.toString()}
+            const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString()}
             setAuth(loggedUser);
             
             navigate('/feed');

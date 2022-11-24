@@ -1,13 +1,10 @@
 import React, {useState, useEffect} from "react";
 import './Profile.css';
 import Feed from "../../components/Feed";
-import axios from '../../api/axios.js';
+import { userPosts, userProfile } from '../../api/axios.js';
 import ProfileInfo from "../ProfileInfo";
 import EditProfileInfo from "../EditProfileInfo";
 import {useAuth} from '../../context/AuthContext'
-
-const PROFILE_URL = '/api/user/profile';
-const POSTS_URL = '/api/v1/Posts/ownposts';
 
 export default function Profile(){
     const { auth } = useAuth();
@@ -23,28 +20,14 @@ export default function Profile(){
 
     async function getUserProfile(){
         const token = auth.token;
-        await axios.get(PROFILE_URL,
-            {
-                headers: { 'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin" : "*",
-                    'Content-Type': 'application/json'  },
-                withCredentials: true
-            }
-        ).then((response) => {
+        await userProfile(token).then((response) => {
             setUser(response.data);
         })
     }
 
     async function getUserPosts(){
         const token = auth.token;
-        await axios.get(POSTS_URL,
-            {
-                headers: { 'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin" : "*",
-                    'Content-Type': 'application/json'  },
-                withCredentials: true
-            }
-        ).then((response) => {
+        await userPosts(token).then((response) => {
             console.log(JSON.stringify(response.data));
             setPosts(response.data);
         })

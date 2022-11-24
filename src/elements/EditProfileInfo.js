@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useTranslation } from 'react-i18next';
-//import './ProfileInfo.css';
-import axios from '../api/axios.js';
+import { updateUser } from '../api/axios.js';
 import {useAuth} from '../context/AuthContext'
 import { Button } from 'react-bootstrap';  
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -9,8 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EmailChangeModal from "./modal/EmailChangeModal.js";
 import PasswordChangeModal from "./modal/PasswordChangeModal.js";
 import ImageSelectModal from "./modal/ImageSelectModal.js";
-
-const PUT_PROFILE_URL = '/api/user/profile';
 
 const NAME_REGEX = /^[A-Z][A-z" "-]{3,49}$/;
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
@@ -66,14 +63,7 @@ export default function EditProfileInfo(props){
         console.log(updatedUser);
 
         const token = auth.token;
-        await axios.put(PUT_PROFILE_URL, JSON.stringify(updatedUser),
-            {
-                headers: { 'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin" : "*",
-                    'Content-Type': ['application/json', 'multipart/form-data']  },
-                withCredentials: true
-            }
-        ).then((response) => {
+        updateUser(updatedUser, token).then((response) => {
             props.updateUser(updatedUser);
             props.updateMode(false);
             window.location.reload();

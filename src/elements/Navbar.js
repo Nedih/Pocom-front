@@ -1,15 +1,12 @@
 import './Navbar.css';
-import React, {useContext} from "react";
+import React from "react";
 import {
   NavLink,
   useNavigate
 } from "react-router-dom";
-import axios from '../api/axios';
-import AuthContext from '../context/AuthContext';
+import { signOut } from '../api/axios';
 import {useAuth} from '../context/AuthContext'
 import { useTranslation } from 'react-i18next';
-
-const LOGOUT_URL = '/api/auth/sign-out';
 
 const lngs = {
   en: { nativeName: 'English' },
@@ -25,14 +22,7 @@ function Navbar() {
     try {
       const token = auth.token;
       console.log("Send this:" + token);
-      const response = await axios.post(LOGOUT_URL, "",        
-          {
-            headers: { 'Authorization': `Bearer ${token}`,
-              "access-control-allow-origin" : "*",
-          'Content-Type': 'application/json'  },
-            withCredentials: true
-          }
-      ).then((response) => {
+      signOut(token).then((response) => {
         console.log(JSON.stringify(response?.data));
         setAuth({ loggedIn: false, token: ""});
         window.sessionStorage.setItem('userToken', "")

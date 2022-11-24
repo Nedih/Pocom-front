@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext({
   auth: {
@@ -13,7 +13,8 @@ export const useAuth = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     loggedIn: JSON.parse(window.sessionStorage.getItem('isAuthorized')),
-    token: window.sessionStorage.getItem('userToken')?.toString()
+    token: window.sessionStorage.getItem('userToken')?.toString(),
+    refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
   }); 
 
   return (

@@ -1,5 +1,4 @@
-import React, {useState, useEffect} from "react";
-//import './ProfileInfo.css';
+import React from "react";
 
 export default function ProfileInfo(props){
 
