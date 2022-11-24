@@ -24,10 +24,12 @@ function Navbar() {
       console.log("Send this:" + token);
       signOut(token).then((response) => {
         console.log(JSON.stringify(response?.data));
-        setAuth({ loggedIn: false, token: ""});
+        setAuth({ loggedIn: false, token: "", refreshToken: "", roles: []});
         window.sessionStorage.setItem('userToken', "")
         window.sessionStorage.setItem('isAuthorized', false);
-        
+        window.sessionStorage.setItem('refreshToken', "");
+        window.sessionStorage.setItem('userRoles', []);
+
         navigate('/sign_in');
       });
     }
@@ -55,6 +57,14 @@ function Navbar() {
               </a>
             ))}
           </div>
+        </li>
+        <li>
+          {auth.roles.find(el => el === "Admin")? 
+          (
+            <p>Admin</p>
+          ) : (
+            <p>Not Admin</p>
+          )}
         </li>
         <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Feed')}</NavLink></li>
         <div className='right'>

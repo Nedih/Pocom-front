@@ -4,7 +4,9 @@ import axios from '../../src/api/axios.js';
 const AuthContext = createContext({
   auth: {
     loggedIn: false,
-    token: ""
+    token: "",
+    refreshToken: "",
+    roles: []
   },
   setAuth: () => { },
 });
@@ -15,7 +17,8 @@ const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     loggedIn: JSON.parse(window.sessionStorage.getItem('isAuthorized')),
     token: window.sessionStorage.getItem('userToken')?.toString(),
-    refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
+    refreshToken: window.sessionStorage.getItem('refreshToken')?.toString(),
+    token: window.sessionStorage.getItem('userRoles'),
   });
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
   return (

@@ -44,12 +44,21 @@ function SignInForm() {
             console.log("TOKEN: " + accessToken);
 
             window.sessionStorage.setItem('userToken', accessToken?.toString());
-            window.sessionStorage.setItem('refreshToken', accessToken?.toString());
+            window.sessionStorage.setItem('refreshToken', refreshToken?.toString());
             window.sessionStorage.setItem('isAuthorized', true);
-            
-            const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString()}
+
+            let jwtData = response?.data?.accessToken?.split('.')[1]
+            let decodedJwtJsonData = window.atob(jwtData)
+            let decodedJwtData = JSON.parse(decodedJwtJsonData)
+            console.log(decodedJwtData); 
+            const roles = decodedJwtData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+            console.log(roles);
+
+            window.sessionStorage.setItem('userRoles', roles);
+
+            const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString(), roles: roles}
             setAuth(loggedUser);
-            
+
             navigate('/feed');
             setUser('');
             setPwd('');
