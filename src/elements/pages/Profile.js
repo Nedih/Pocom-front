@@ -4,7 +4,7 @@ import Feed from "../../components/Feed";
 import axios from '../../api/axios.js';
 import ProfileInfo from "../ProfileInfo";
 import EditProfileInfo from "../EditProfileInfo";
-import {useAuth} from '../../context/AuthContext'
+import {useAuth} from '../../context/AuthContext';
 
 const PROFILE_URL = '/api/user/profile';
 const POSTS_URL = '/api/v1/Posts/ownposts';
@@ -36,16 +36,14 @@ export default function Profile(){
     }
 
     async function getUserPosts(){
-        const token = auth.token;
         await axios.get(POSTS_URL,
             {
-                headers: { 'Authorization': `Bearer ${token}`,
+                headers: {
                     "access-control-allow-origin" : "*",
                     'Content-Type': 'application/json'  },
                 withCredentials: true
             }
         ).then((response) => {
-            console.log(JSON.stringify(response.data));
             setPosts(response.data);
         })
     }
