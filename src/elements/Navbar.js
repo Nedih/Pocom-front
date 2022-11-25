@@ -28,7 +28,7 @@ function Navbar() {
         window.sessionStorage.setItem('userToken', "")
         window.sessionStorage.setItem('isAuthorized', false);
         window.sessionStorage.setItem('refreshToken', "");
-        window.sessionStorage.setItem('userRoles', []);
+        window.sessionStorage.setItem('userRoles', JSON.stringify([]));
 
         navigate('/sign_in');
       });
