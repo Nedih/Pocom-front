@@ -58,6 +58,9 @@ function Navbar() {
             ))}
           </div>
         </li>
+        <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Feed')}</NavLink></li>
+        <li><NavLink to="/users" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Users')}</NavLink></li>
+        <li><NavLink to="/reactions" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('My Reactions')}</NavLink></li>
         <li>
           {auth.roles.find(el => el === "Admin")? 
           (
@@ -66,7 +69,6 @@ function Navbar() {
             <></>
           )}
         </li>
-        <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Feed')}</NavLink></li>
         <div className='right'>
           <li><NavLink to="/profile" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Profile')}</NavLink></li>
           <li><a onClick={logout}>{i18n.t('Log out')}</a></li>

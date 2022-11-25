@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import './Profile.css';
 import Feed from "../../components/Feed";
-import { allPosts } from '../../api/axios.js';
+import { allPostsAnonymous } from '../../api/axios.js';
 import {useAuth} from '../../context/AuthContext'
+import FeedItem from "../../components/FeedItem";
 
-export default function FeedPage(){
+export default function NotAuthFeedPage(){
     const { auth } = useAuth();
 
     const [posts, setPosts] = useState([{}]);
@@ -14,8 +15,7 @@ export default function FeedPage(){
       }, []);
 
     async function getPosts(){
-        const token = auth.token;
-        await allPosts(token).then((response) => {
+        await allPostsAnonymous().then((response) => {
             console.log(JSON.stringify(response.data));
             setPosts(response.data);
         })
@@ -24,7 +24,9 @@ export default function FeedPage(){
     return(
         <div> 
             <div className="feed">
-                <Feed posts={posts}/>
+                {posts.map(post => (
+                <FeedItem key={post.id} post={post} />
+            ))}
             </div>
         </div>
     );

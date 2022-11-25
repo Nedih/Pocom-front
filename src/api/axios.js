@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useAuth } from '../context/AuthContext';
 
 const LOGIN_URL = '/api/auth/login';
 const REGISTER_URL = '/api/auth';
@@ -8,6 +7,9 @@ const USER_POSTS_URL = '/api/v1/Posts/ownposts';
 const ALL_POSTS_URL = '/api/v1/Posts';
 const PUT_PROFILE_URL = '/api/user/profile';
 const LOGOUT_URL = '/api/auth/sign-out';
+const USERS_URL = '/api/user/users-list';
+const ALL_POSTS_ANONYMOUS_URL = '/api/v1/Posts/';
+const USER_REACTIONS_URL = '/api/Reactions/';
 
 const TOKEN_REFRESH_URL = '/api/auth/refresh-token';
 
@@ -101,6 +103,45 @@ export const signOut = async (token) => {
             withCredentials: true
           }
       )} catch(err) {  
+        catchRefresh(err);
+    };
+}
+
+export const getUsers = async (token) => {
+    try{
+        return await axiosBase.get(USERS_URL,
+        {
+            headers: { 'Authorization': `Bearer ${token}`,
+                "access-control-allow-origin" : "*",
+                'Content-Type': 'application/json'  },
+            withCredentials: true
+        }
+    )} catch(err) {  
+        catchRefresh(err);
+    };
+}
+
+export const allPostsAnonymous = async () => {
+    return await axiosBase.get(ALL_POSTS_ANONYMOUS_URL,
+        {
+            headers: { 
+                "access-control-allow-origin" : "*",
+                'Content-Type': 'application/json'  },
+            withCredentials: true
+        }
+    )
+}
+
+export const userReactions = async (token) => {
+    try{
+        return await axiosBase.get(USER_REACTIONS_URL,
+        {
+            headers: { 'Authorization': `Bearer ${token}`,
+                "access-control-allow-origin" : "*",
+                'Content-Type': 'application/json'  },
+            withCredentials: true
+        }
+    )} catch(err) {  
         catchRefresh(err);
     };
 }
