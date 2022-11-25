@@ -9,7 +9,7 @@
 }
 
 .profile.edit{
-    background-color: rgb(83, 83, 83);
+    background-color: rgb(35, 25, 44);
 }
 
 .profile p {
@@ -40,6 +40,8 @@
     display: flex;
     align-items: center;
     vertical-align: middle;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .feed {
@@ -56,9 +58,60 @@
 
 .profileNames {
     margin-top: 20px;
+    color: aliceblue;
+    font-size: 16pt;
+    margin: 15px;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .modalClass {  
     text-align: center;  
     margin-top: 100px;  
-  } 
+} 
+
+.modal-content {
+    width: fit-content;
+}
+
+.modal-content {
+    margin: auto;
+}
+
+.avatarDiv {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.avatarDiv img {
+    width: 200px;
+    margin-bottom: 40px;
+}
+
+.editForm {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.submitBtn-container {
+    align-items: center;
+    position: relative;
+    /*justify-content: end;
+    align-items: ;*/
+}
+
+.submitBtn {
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+    width: 140px;
+    height: 50px;
+    font-size: 16pt;
+    
+}
+
+#dateOfBirth {
+    width: 100%;
+}

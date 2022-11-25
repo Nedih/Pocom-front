@@ -61,9 +61,9 @@ function Navbar() {
         <li>
           {auth.roles.find(el => el === "Admin")? 
           (
-            <p>Admin</p>
+            <li><NavLink to="/admin-panel" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Admin Panel')}</NavLink></li>
           ) : (
-            <p>Not Admin</p>
+            <></>
           )}
         </li>
         <li><NavLink to="/feed" className={(navData) => navData.isActive ? "selected" : "" }>{i18n.t('Feed')}</NavLink></li>

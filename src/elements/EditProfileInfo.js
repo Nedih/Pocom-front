@@ -89,74 +89,80 @@ export default function EditProfileInfo(props){
     return(
         <div className="profile edit">
             <div className="row">
-                <img src={image} width="105px"/> 
-                <ImageSelectModal setImage={changeImage} showImage={showImage} setShowImage={changeShowImage} />
-                <Button className="imageBtn" onClick={() => setShowImage(true)}>{i18n.t('ChangeImageBtn')}</Button>
+                <div className="avatarDiv">
+                    <img src={image} width="105px"/>            
+                    <Button className="imageBtn" onClick={() => setShowImage(true)}>{i18n.t('ChangeImageBtn')}</Button>
+                </div>
                 <div className="btnContainer">
+                    <p>{i18n.t('Additional Actions')}</p>
                     <Button className="emailBtn" onClick={() => setShowEmail(true)}>{i18n.t('ChangeEmailBtn')}</Button>
-                    <Button className="passwordBtn" onClick={() => setShowPassword(true)}>{i18n.t('ChangePwdBtn')}</Button>
-                    <button className="editBtn" onClick={handleSubmit}>{i18n.t('Save')}</button>
+                    <Button className="passwordBtn" onClick={() => setShowPassword(true)}>{i18n.t('ChangePwdBtn')}</Button> 
                 </div>
             </div>
-            <div className="profileNames">
-                <p>Name: {props.user.name}</p>
-                <p>Username: {props.user.login}</p>
-                <label for="name">
-                    {i18n.t('Name')}:
-                    <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
-                    <FontAwesomeIcon icon={faTimes} className={validName || !name ? "hide" : "invalid"} />
-                </label><br/>
-                <input 
-                    type="text"
-                    id="name" 
-                    value={name} 
-                    onChange={(e) => setName(e.target.value)}
-                    aria-invalid={validName ? "false" : "true"}
-                    aria-describedby="uidnote"
-                /><br/>
-                <label for="login">
-                    {i18n.t('Username')}:
-                    <FontAwesomeIcon icon={faCheck} className={validLogin ? "valid" : "hide"} />
-                    <FontAwesomeIcon icon={faTimes} className={validLogin || !login ? "hide" : "invalid"} />
-                </label><br/>
-                <input 
-                    type="text" 
-                    id="login" 
-                    value={login} 
-                    onChange={(e) => setLogin(e.target.value)}
-                    aria-invalid={validLogin ? "false" : "true"}
-                    aria-describedby="uidnote"
-                /><br/> 
-                <label for="phone">
-                    {i18n.t('Phone')}:
-                    <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
-                    <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
-                </label><br/>           
-                <input 
-                    type="tel" 
-                    id="phone" 
-                    value={phone} 
-                    onChange={(e) => setPhone(e.target.value)}
-                    aria-invalid={validPhone ? "false" : "true"}
-                    aria-describedby="uidnote"
-                /><br/>
-                <label for="dateOfBirth">
-                    {i18n.t('Birth Date')}:
-                    <FontAwesomeIcon icon={faCheck} className={validDateOfBirth ? "valid" : "hide"} />
-                    <FontAwesomeIcon icon={faTimes} className={validDateOfBirth || !dateOfBirth ? "hide" : "invalid"} />
-                </label><br/>
-                <input 
-                    type="date" 
-                    id="dateOfBirth" 
-                    value={dateOfBirth} 
-                    onChange={(e) => setDateOfBirth(e.target.value)}
-                    aria-invalid={validDateOfBirth ? "false" : "true"}
-                    aria-describedby="uidnote"
-                /><br/>
+            <div className="editForm">
+                <div className="profileNames">
+                    <label for="name">
+                        {i18n.t('Name')}:
+                        <FontAwesomeIcon icon={faCheck} className={validName ? "valid" : "hide"} />
+                        <FontAwesomeIcon icon={faTimes} className={validName || !name ? "hide" : "invalid"} />
+                    </label><br/>
+                    <input 
+                        type="text"
+                        id="name" 
+                        value={name} 
+                        onChange={(e) => setName(e.target.value)}
+                        aria-invalid={validName ? "false" : "true"}
+                        aria-describedby="uidnote"
+                    /><br/>
+                    <label for="login">
+                        {i18n.t('Username')}:
+                        <FontAwesomeIcon icon={faCheck} className={validLogin ? "valid" : "hide"} />
+                        <FontAwesomeIcon icon={faTimes} className={validLogin || !login ? "hide" : "invalid"} />
+                    </label><br/>
+                    <input 
+                        type="text" 
+                        id="login" 
+                        value={login} 
+                        onChange={(e) => setLogin(e.target.value)}
+                        aria-invalid={validLogin ? "false" : "true"}
+                        aria-describedby="uidnote"
+                    /><br/> 
+                    <label for="phone">
+                        {i18n.t('Phone')}:
+                        <FontAwesomeIcon icon={faCheck} className={validPhone ? "valid" : "hide"} />
+                        <FontAwesomeIcon icon={faTimes} className={validPhone || !phone ? "hide" : "invalid"} />
+                    </label><br/>           
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        value={phone} 
+                        onChange={(e) => setPhone(e.target.value)}
+                        aria-invalid={validPhone ? "false" : "true"}
+                        aria-describedby="uidnote"
+                    /><br/>
+                    <label for="dateOfBirth">
+                        {i18n.t('Birth Date')}:
+                        <FontAwesomeIcon icon={faCheck} className={validDateOfBirth ? "valid" : "hide"} />
+                        <FontAwesomeIcon icon={faTimes} className={validDateOfBirth || !dateOfBirth ? "hide" : "invalid"} />
+                    </label><br/>
+                    <input 
+                        type="date" 
+                        id="dateOfBirth" 
+                        value={dateOfBirth} 
+                        onChange={(e) => setDateOfBirth(e.target.value)}
+                        aria-invalid={validDateOfBirth ? "false" : "true"}
+                        aria-describedby="uidnote"
+                    /><br/>
+                </div>
+                <div className="submitBtn-container">
+                    <Button className="submitBtn btn btn-success" onClick={handleSubmit}>{i18n.t('Save')}</Button>
+                </div>
             </div>
             <br />
+            
             <EmailChangeModal showEmail={showEmail} setShowEmail={changeShowEmail} />
-            <PasswordChangeModal showPassword={showPassword} setShowPassword={changeShowPwd} />  
+            <PasswordChangeModal showPassword={showPassword} setShowPassword={changeShowPwd} />
+            <ImageSelectModal setImage={changeImage} showImage={showImage} setShowImage={changeShowImage} />  
         </div>
     );
 }
