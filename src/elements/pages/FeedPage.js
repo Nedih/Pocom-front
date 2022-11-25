@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import './Profile.css';
-import Feed from "../../components/Feed";
+import FeedItem from "../../components/FeedItem";
 import { allPosts } from '../../api/axios.js';
 import {useAuth} from '../../context/AuthContext'
 
@@ -24,7 +24,9 @@ export default function FeedPage(){
     return(
         <div> 
             <div className="feed">
-                <Feed posts={posts}/>
+                {posts.map(post => (
+                <FeedItem key={post.id} post={post} />
+            ))}
             </div>
         </div>
     );

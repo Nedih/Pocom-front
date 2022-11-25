@@ -5,6 +5,8 @@ import { userPosts, userProfile } from '../../api/axios.js';
 import ProfileInfo from "../ProfileInfo";
 import EditProfileInfo from "../EditProfileInfo";
 import {useAuth} from '../../context/AuthContext'
+import FeedPage from "./FeedPage";
+import PostCreate from "../PostCreate";
 
 export default function Profile(){
     const { auth } = useAuth();
@@ -49,8 +51,11 @@ export default function Profile(){
             ) : (
                 <ProfileInfo user={user} updateUser={updateUser} updateMode={updateMode}/>
             ) }
+            <div>
+                <PostCreate />
+            </div>
             <div className="feed">
-                <Feed posts={posts}/>
+                <FeedPage posts={posts}/>
             </div>
         </div>
     );

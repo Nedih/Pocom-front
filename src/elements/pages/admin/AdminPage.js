@@ -21,7 +21,7 @@ export default function AdminPage(){
 
     return(
         <div> 
-            <p>Barabolya</p>
+            <p>Admin Panel</p>
         </div>
     );
 }

@@ -49,3 +49,15 @@ div.feed_item:hover {
     line-height: 50px;
     vertical-align: middle;
 }
+
+h {
+    font-size: 20pt;
+    margin: 15px;
+    color: rgb(0, 0, 0);
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.container{
+    margin-top: 50px;
+    padding: 40px 10%;
+}

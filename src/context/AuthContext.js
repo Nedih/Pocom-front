@@ -18,7 +18,7 @@ const AuthProvider = ({ children }) => {
     loggedIn: JSON.parse(window.sessionStorage.getItem('isAuthorized')),
     token: window.sessionStorage.getItem('userToken')?.toString(),
     refreshToken: window.sessionStorage.getItem('refreshToken')?.toString(),
-    token: window.sessionStorage.getItem('userRoles'),
+    roles: JSON.parse(window.sessionStorage.getItem('userRoles')),
   });
   axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
   return (

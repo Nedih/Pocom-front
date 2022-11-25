@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from "react";
 import './Profile.css';
-import Feed from "../../components/Feed";
 import { allPostsAnonymous } from '../../api/axios.js';
 import {useAuth} from '../../context/AuthContext'
 import FeedItem from "../../components/FeedItem";

@@ -146,6 +146,20 @@ export const userReactions = async (token) => {
     };
 }
 
+export const postPost = async (post, token) => {
+    try{
+        return await axiosBase.post(ALL_POSTS_URL, post,        
+          {
+            headers: { 'Authorization': `Bearer ${token}`,
+              "access-control-allow-origin" : "*",
+          'Content-Type': 'application/json'  },
+            withCredentials: true
+          }
+      )} catch(err) {  
+        catchRefresh(err);
+    };
+}
+
 async function setTokens(response){
     //const {setAuth} = useAuth();
     const accessToken = response?.data?.accessToken;

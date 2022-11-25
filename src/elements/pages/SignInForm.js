@@ -54,14 +54,14 @@ function SignInForm() {
             const roles = decodedJwtData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
             console.log(roles);
             if(Array.isArray(roles)){
-                window.sessionStorage.setItem('userRoles', roles);
+                window.sessionStorage.setItem('userRoles', JSON.stringify(roles));
                 const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString(), roles: roles}
                 setAuth(loggedUser);
             }
             else{
                 const emptyArray = [];
                 const rolesArray = emptyArray.concat(roles);
-                window.sessionStorage.setItem('userRoles', rolesArray);
+                window.sessionStorage.setItem('userRoles', JSON.stringify(rolesArray));
                 const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString(), roles: rolesArray}
                 setAuth(loggedUser);
             } 

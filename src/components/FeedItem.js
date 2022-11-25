@@ -22,7 +22,7 @@ export class FeedItem extends Component {
         const { post } = this.props;
         let { clicked } = this.state;
         let image;
-        if (post.authorImage !== null) {
+        if (post.authorImage !== undefined) {
             image = <img className='user_image' alt="img" src={post.authorImage} />
         }
         else{
