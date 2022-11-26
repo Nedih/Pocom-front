@@ -155,8 +155,9 @@ export default function EditProfileInfo(props){
                     /><br/>
                 </div>
                 <div className="submitBtn-container">
-                    <Button className="submitBtn btn btn-success" onClick={handleSubmit}>{i18n.t('Save')}</Button>
+                <Button className="submitBtn btn btn-success" onClick={handleSubmit}>{i18n.t('Save')}</Button>
                 </div>
+
             </div>
             <br />
             

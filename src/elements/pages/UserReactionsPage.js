@@ -12,8 +12,7 @@ export default function UserReactionsPage(){
       }, []);
 
     async function getUserReactions(){
-        const token = auth.token;
-        await userReactions(token).then((response) => {
+        await userReactions().then((response) => {
             console.log(JSON.stringify(response.data));
             setReactions(response.data);
         })

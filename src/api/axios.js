@@ -27,6 +27,10 @@ export const signIn = async (input) => {
     );
 }
 
+export const addHeaderAuth = async (token) => {
+    axiosBase.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
+
 export const signUp = async (newUser) => {
     return await axiosBase.post(REGISTER_URL,
         JSON.stringify(newUser),
@@ -37,11 +41,11 @@ export const signUp = async (newUser) => {
     )
 }
 
-export const userProfile = async (token) => {
+export const userProfile = async () => {
     try{
         return await axiosBase.get(PROFILE_URL,
             {
-                headers: { 'Authorization': `Bearer ${token}`,
+                headers: { 
                     "access-control-allow-origin" : "*",
                     'Content-Type': 'application/json'  },
                 withCredentials: true
@@ -51,11 +55,11 @@ export const userProfile = async (token) => {
     };
 }
 
-export const userPosts = async (token) => {
+export const userPosts = async () => {
     try{
         return await axiosBase.get(USER_POSTS_URL,
             {
-                headers: { 'Authorization': `Bearer ${token}`,
+                headers: { 
                     "access-control-allow-origin" : "*",
                     'Content-Type': 'application/json'  },
                 withCredentials: true
@@ -65,11 +69,11 @@ export const userPosts = async (token) => {
     };
 }
 
-export const allPosts = async (token) => {
+export const allPosts = async () => {
     try{
         return await axiosBase.get(ALL_POSTS_URL,
         {
-            headers: { 'Authorization': `Bearer ${token}`,
+            headers: { 
                 "access-control-allow-origin" : "*",
                 'Content-Type': 'application/json'  },
             withCredentials: true
@@ -79,11 +83,11 @@ export const allPosts = async (token) => {
     };
 }
 
-export const updateUser = async (updatedUser, token) => {
+export const updateUser = async (updatedUser) => {
     try{
         return await axiosBase.put(PUT_PROFILE_URL, JSON.stringify(updatedUser),
             {
-                headers: { 'Authorization': `Bearer ${token}`,
+                headers: { 
                     "access-control-allow-origin" : "*",
                     'Content-Type': ['application/json', 'multipart/form-data']  },
                 withCredentials: true
@@ -93,11 +97,11 @@ export const updateUser = async (updatedUser, token) => {
     };
 }
 
-export const signOut = async (token) => {
+export const signOut = async () => {
     try{
         return await axiosBase.post(LOGOUT_URL, "",        
           {
-            headers: { 'Authorization': `Bearer ${token}`,
+            headers: { 
               "access-control-allow-origin" : "*",
           'Content-Type': 'application/json'  },
             withCredentials: true
@@ -107,11 +111,11 @@ export const signOut = async (token) => {
     };
 }
 
-export const getUsers = async (token) => {
+export const getUsers = async () => {
     try{
         return await axiosBase.get(USERS_URL,
         {
-            headers: { 'Authorization': `Bearer ${token}`,
+            headers: { 
                 "access-control-allow-origin" : "*",
                 'Content-Type': 'application/json'  },
             withCredentials: true
@@ -132,11 +136,11 @@ export const allPostsAnonymous = async () => {
     )
 }
 
-export const userReactions = async (token) => {
+export const userReactions = async () => {
     try{
         return await axiosBase.get(USER_REACTIONS_URL,
         {
-            headers: { 'Authorization': `Bearer ${token}`,
+            headers: { 
                 "access-control-allow-origin" : "*",
                 'Content-Type': 'application/json'  },
             withCredentials: true
@@ -146,16 +150,18 @@ export const userReactions = async (token) => {
     };
 }
 
-export const postPost = async (post, token) => {
-    try{
-        return await axiosBase.post(ALL_POSTS_URL, post,        
-          {
-            headers: { 'Authorization': `Bearer ${token}`,
-              "access-control-allow-origin" : "*",
-          'Content-Type': 'application/json'  },
-            withCredentials: true
-          }
-      )} catch(err) {  
+export const postPost = async (post) => {
+    try {
+        return await axiosBase.post(ALL_POSTS_URL, post,
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        )
+    } catch (err) {
         catchRefresh(err);
     };
 }
@@ -174,24 +180,27 @@ async function setTokens(response){
     //setAuth(loggedUser);
 }
 
-async function catchRefresh(err){
+async function catchRefresh(err) {
     console.log(err.message);
-        if (err.message == "Network Error"){
-            const token = window.sessionStorage.getItem('userToken')?.toString();
-            const tokens = { 
-                accessToken: token, 
-                refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
-            };
-            await axiosBase.post(TOKEN_REFRESH_URL, tokens,
-                {
-                    headers: { 'Authorization': `Bearer ${token}`,
-                        "access-control-allow-origin" : "*",
-                        'Content-Type': 'application/json'  },
-                    withCredentials: true
-                } 
+    if (err.message == "Network Error") {
+        const token = window.sessionStorage.getItem('userToken')?.toString();
+        const tokens = {
+            accessToken: token,
+            refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
+        };
+        await axiosBase.post(TOKEN_REFRESH_URL, tokens,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
         ).then((response) => {
             setTokens(response);
-        })}
+        })
+    }
 }
 
 export default axios.create({

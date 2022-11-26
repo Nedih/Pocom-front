@@ -15,7 +15,7 @@ export default function FeedPage(){
 
     async function getPosts(){
         const token = auth.token;
-        await allPosts(token).then((response) => {
+        await allPosts().then((response) => {
             console.log(JSON.stringify(response.data));
             setPosts(response.data);
         })

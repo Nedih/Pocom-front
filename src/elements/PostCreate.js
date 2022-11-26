@@ -13,8 +13,7 @@ export default function PostCreate(){
             text: text
         }
 
-        const token = auth.token;
-        await postPost(post, token)
+        await postPost(post)
         .then(() => {
             window.location.reload();
         })

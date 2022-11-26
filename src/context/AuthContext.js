@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import axios from '../../src/api/axios.js';
+import { addHeaderAuth } from '../../src/api/axios.js';
 
 const AuthContext = createContext({
   auth: {
@@ -20,7 +20,7 @@ const AuthProvider = ({ children }) => {
     refreshToken: window.sessionStorage.getItem('refreshToken')?.toString(),
     roles: JSON.parse(window.sessionStorage.getItem('userRoles')),
   });
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + auth.token;
+  addHeaderAuth(auth.token);
   return (
     <AuthContext.Provider value={{ auth, setAuth }}>
       {children}
