@@ -38,7 +38,8 @@ body {
     justify-content: flex-start;
     padding: 1rem;
     margin: 0;
-    background-color: rgba(0,0,0,0.4);
+    background-color: #525252;
+    border-radius: 1%;
 }
 
 .SignUpForm form {
@@ -53,7 +54,7 @@ body {
     color: #fff;
 }
 
-.SignUpForm input[type="text"],
+.SignUpForm input[type="email"],
 .SignUpForm input[type="password"],
 .SignUpForm button,
 .SignUpForm textarea {
@@ -61,6 +62,7 @@ body {
   font-size: 22px;
   padding: 0.25rem;
   border-radius: 0.5rem;
+  text-align: center;
 }
 
 .SignUpForm label,

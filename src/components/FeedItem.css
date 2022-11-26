@@ -16,7 +16,7 @@ div.post_panel {
 
 div.feed_item {
     border: 0 solid black;
-    border-bottom-color: rgb(239, 243, 244);
+    border-bottom-color: #525252;
     border-bottom-width: 1px;
     padding-top: 16px;
     padding-left: 16px;
@@ -33,7 +33,7 @@ div.feed_item {
 }
 
 div.feed_item:hover {
-    background-color: rgb(247, 249, 249);
+    background-color: #525252;
 
 }
 

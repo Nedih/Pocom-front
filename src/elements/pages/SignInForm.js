@@ -101,26 +101,31 @@ function SignInForm() {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>{i18n.t('Sign In (header)')}</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">{i18n.t('Email')}</label>
-                        <input
-                            type="text"
-                            id="username"
-                            ref={userRef}
-                            autoComplete="off"
-                            onChange={(e) => setUser(e.target.value)}
-                            value={user}
-                            required
-                        />
-
-                        <label htmlFor="password">{i18n.t('Password')}:</label>
-                        <input
-                            type="password"
-                            id="password"
-                            onChange={(e) => setPwd(e.target.value)}
-                            value={pwd}
-                            required
-                        />
-                        <button>{i18n.t('Sign In')}</button>
+                        <div className='form-outline mb-4'>
+                            <input
+                                className="form-control"
+                                placeholder={i18n.t('Email')}
+                                type="email"
+                                id="username"
+                                ref={userRef}
+                                autoComplete="off"
+                                onChange={(e) => setUser(e.target.value)}
+                                value={user}
+                                required
+                            />
+                        </div>
+                        <div className='form-outline mb-4'>
+                            <input
+                                className="form-control"
+                                type="password"
+                                id="password"
+                                onChange={(e) => setPwd(e.target.value)}
+                                value={pwd}
+                                placeholder={i18n.t('Password')}
+                                required
+                            />
+                        </div>
+                        <button className='btn btn-secondary'>{i18n.t('Sign In')}</button>
                     </form>
                     <p>
                         {i18n.t('Need an Account?')}
