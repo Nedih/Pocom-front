@@ -203,18 +203,27 @@ async function catchRefresh(err) {
             accessToken: token,
             refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
         };
-        await axiosBase.post(TOKEN_REFRESH_URL, tokens,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin": "*",
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
+        try {
+            await axiosBase.post(TOKEN_REFRESH_URL, tokens,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        "access-control-allow-origin": "*",
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }
+            ).then((response) => {
+                setTokens(response);
+            })
+        } catch(err) {
+            if (err.message == "Network Error") {
+                window.sessionStorage.removeItem('userToken');
+                window.sessionStorage.removeItem('refreshToken');
+                window.sessionStorage.removeItem('isAuthorized');
+                window.location.reload();
             }
-        ).then((response) => {
-            setTokens(response);
-        })
+        }
     }
 }
 
