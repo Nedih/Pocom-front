@@ -4,6 +4,7 @@ const LOGIN_URL = '/api/auth/login';
 const REGISTER_URL = '/api/auth';
 const PROFILE_URL = '/api/user/profile';
 const USER_POSTS_URL = '/api/v1/Posts/ownposts';
+const POST_COMMENTS_URL = '/api/v1/Posts/comments/';
 const ALL_POSTS_URL = '/api/v1/Posts';
 const PUT_PROFILE_URL = '/api/user/profile';
 const LOGOUT_URL = '/api/auth/sign-out';
@@ -165,7 +166,21 @@ export const postPost = async (post) => {
         catchRefresh(err);
     };
 }
-
+export const getComments = async (id) => {
+    try {
+        return await axiosBase.get(POST_COMMENTS_URL+id,
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        )
+    } catch (err) {
+        catchRefresh(err);
+    };
+}
 async function setTokens(response){
     //const {setAuth} = useAuth();
     const accessToken = response?.data?.accessToken;

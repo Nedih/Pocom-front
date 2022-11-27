@@ -13,9 +13,8 @@ export class FeedItem extends Component {
     };
 
     handleClick() {
-        console.log(this.clicked);
-        this.setState({ clicked: true });
-        console.log(this.clicked);
+        const { post } = this.props;
+        window.location.replace(`/post/${post.id}`);
     }
 
     render() {
@@ -30,14 +29,11 @@ export class FeedItem extends Component {
         }
         return (
             <>
-                {clicked && (
-                    <Navigate to={`/post/${post.id}`} replace={true} />
-                )}
                 <div key={post.id} className='feed_item' style={{ 'textAlign': 'left' }} onClick={this.handleClick}>
                     {image}
                     <div className='w-100'>
                         <div className='post_panel'>
-                            <div className='user_label'>{post.authorUsername}</div>
+                            <div className='user_label'>{post.author}</div>
                             <span>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">
                                     <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
@@ -65,10 +61,6 @@ export class FeedItem extends Component {
                         </div>
                     </div>
                 </div>
-                {/* <div key={post.id} className="alert alert-primary" onClick={this.handleClick}>
-                    <h4 className="alert-heading">{post.title}</h4>
-                    <p>{post.body}</p>
-                </div> */}
             </>
         )
     }

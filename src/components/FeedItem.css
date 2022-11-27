@@ -25,10 +25,11 @@ div.feed_item {
     display: flex;
     cursor: pointer;
     text-align: left;
+    color: white;
+
 }
 
 .user_label {
-    color: rgb(15, 20, 25);
     font-weight: 700;
 }
 

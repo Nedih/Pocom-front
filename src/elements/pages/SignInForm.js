@@ -98,7 +98,7 @@ function SignInForm() {
                 </section>
             ) : (
                 <section>
-                    <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
+                    <p ref={errRef} className={errMsg ? "errmsg" : "d-none"} aria-live="assertive">{errMsg}</p>
                     <h1>{i18n.t('Sign In (header)')}</h1>
                     <form onSubmit={handleSubmit}>
                         <div className='form-outline mb-4'>
