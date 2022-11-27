@@ -1,4 +1,6 @@
+import React from 'react';
 import axios from 'axios';
+import { useAuth } from '../context/AuthContext';
 
 const LOGIN_URL = '/api/auth/login';
 const REGISTER_URL = '/api/auth';
@@ -166,8 +168,10 @@ export const postPost = async (post) => {
     };
 }
 
-async function setTokens(response){
-    //const {setAuth} = useAuth();
+export async function SetTokens(response){
+    const {auth, setAuth} = useAuth();
+
+    console.log(JSON.stringify(response?.data));
     const accessToken = response?.data?.accessToken;
     const refreshToken = response?.data?.refreshToken;
     console.log("TOKEN: " + accessToken);
@@ -175,9 +179,9 @@ async function setTokens(response){
     window.sessionStorage.setItem('userToken', accessToken?.toString());
     window.sessionStorage.setItem('refreshToken', refreshToken?.toString());
     window.sessionStorage.setItem('isAuthorized', true);
-    
-    //const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString()}
-    //setAuth(loggedUser);
+
+    const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString(), roles: auth.roles}
+    setAuth(loggedUser);
 }
 
 async function catchRefresh(err) {
@@ -185,7 +189,7 @@ async function catchRefresh(err) {
     if (err.message == "Network Error") {
         const token = window.sessionStorage.getItem('userToken')?.toString();
         const tokens = {
-            accessToken: token,
+            accessToken: window.sessionStorage.getItem('userToken')?.toString(),
             refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
         };
         await axiosBase.post(TOKEN_REFRESH_URL, tokens,
@@ -198,7 +202,7 @@ async function catchRefresh(err) {
                 withCredentials: true
             }
         ).then((response) => {
-            setTokens(response);
+            SetTokens(response);
         })
     }
 }
