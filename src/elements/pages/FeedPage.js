@@ -24,7 +24,7 @@ export default function FeedPage(){
     return(
         <div> 
             <div className="feed">
-                {posts.map(post => (
+                {posts.filter((elem)=>elem.id).map(post => (
                 <FeedItem key={post.id} post={post} />
             ))}
             </div>
