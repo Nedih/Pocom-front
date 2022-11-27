@@ -197,34 +197,36 @@ async function setTokens(response){
 
 async function catchRefresh(err) {
     console.log(err.message);
-    if (err.message == "Network Error") {
-        const token = window.sessionStorage.getItem('userToken')?.toString();
-        const tokens = {
-            accessToken: token,
-            refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
-        };
-        try {
-            await axiosBase.post(TOKEN_REFRESH_URL, tokens,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        "access-control-allow-origin": "*",
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
+    if(window.sessionStorage.getItem('refreshToken')!=null){
+        if (err.message == "Network Error") {
+            const token = window.sessionStorage.getItem('userToken')?.toString();
+            const tokens = {
+                accessToken: token,
+                refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
+            };
+            try {
+                await axiosBase.post(TOKEN_REFRESH_URL, tokens,
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            "access-control-allow-origin": "*",
+                            'Content-Type': 'application/json'
+                        },
+                        withCredentials: true
+                    }
+                ).then((response) => {
+                    setTokens(response);
+                })
+            } catch(err) {
+                if (err.message == "Network Error") {
+                    window.sessionStorage.removeItem('userToken');
+                    window.sessionStorage.removeItem('refreshToken');
+                    window.sessionStorage.removeItem('isAuthorized');
+                    window.location.reload();
                 }
-            ).then((response) => {
-                setTokens(response);
-            })
-        } catch(err) {
-            if (err.message == "Network Error") {
-                window.sessionStorage.removeItem('userToken');
-                window.sessionStorage.removeItem('refreshToken');
-                window.sessionStorage.removeItem('isAuthorized');
-                window.location.reload();
             }
         }
-    }
+        }
 }
 
 export default axios.create({
