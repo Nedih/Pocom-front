@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { userReactions } from '../../api/axios.js';
 import {useAuth} from '../../context/AuthContext'
+import FeedItem from "../../components/FeedItem";
 
 export default function UserReactionsPage(){
     const { auth } = useAuth();
@@ -20,11 +21,9 @@ export default function UserReactionsPage(){
 
     return(
         <div> 
-            <div className="reactions">
-                {reactions.map(reaction => (
-                    <div key={reaction.id}>
-                        <p>{reaction.id}</p>
-                    </div>
+            <div className="feed">
+                {reactions.map(post => (
+                    <FeedItem key={post.id} post={post} />
                 ))}
             </div>
         </div>

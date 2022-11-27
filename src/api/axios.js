@@ -9,7 +9,7 @@ const PUT_PROFILE_URL = '/api/user/profile';
 const LOGOUT_URL = '/api/auth/sign-out';
 const USERS_URL = '/api/user/users-list';
 const ALL_POSTS_ANONYMOUS_URL = '/api/v1/Posts/';
-const USER_REACTIONS_URL = '/api/Reactions/';
+const USER_REACTIONS_URL = '/api/v1/Posts/user-reactions';
 
 const TOKEN_REFRESH_URL = '/api/auth/refresh-token';
 

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import './Profile.css';
-import Feed from "../../components/Feed";
 import { userPosts, userProfile } from '../../api/axios.js';
 import ProfileInfo from "../ProfileInfo";
 import EditProfileInfo from "../EditProfileInfo";
