@@ -33,8 +33,8 @@ export default function ImageSelectModal(props){
             <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
             <div>
             <Avatar
-                width={600}
-                height={300}
+                width={450}
+                height={225}
                 onCrop={onCrop}
                 onClose={onClose}
                 onBeforeFileLoad={onBeforeFileLoad}

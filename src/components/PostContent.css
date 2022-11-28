@@ -1,5 +1,4 @@
 .post {
-    margin: 5% 15%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -20,11 +19,10 @@ img.avatar {
 
 .header {
     display: flex;
-    
+
 }
 
 div.comments_block {
-    margin: 5% 15%;
     text-align: left;
 }
 
@@ -32,14 +30,35 @@ div.post_panel.inner {
     align-items: center;
     width: 100%;
 }
+
 .options {
     cursor: pointer;
 }
-.sub_data{
+
+.sub_data {
     display: inline-flex;
     justify-content: space-between;
-width: 100%;
+    width: 100%;
 }
-.postDate{
+
+.postDate {
     margin-top: 12px;
+}
+
+div.empty-container {
+    border: 2px dashed rgb(151, 151, 151);
+    border-radius: 8px;
+    text-align: center;
+    height: 100px;
+}
+
+div.empty-container label {
+    font-size: 1.25em;
+    font-weight: 600;
+    opacity: .5;
+    color: white;
+    display: inline-block;
+    font-family: sans-serif;
+    cursor: pointer;
+    line-height: 100px;
 }

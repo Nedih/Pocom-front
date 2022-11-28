@@ -42,17 +42,17 @@ export default function EmailChangeModal(props){
 
     return(
         <Modal show={props.showEmail}>  
-            <Modal.Header closeButton>{i18n.t('Change Email')}</Modal.Header>  
-            <Modal.Body>
+            <Modal.Header style={{'backgroundColor':'#313131','border': '1px solid #525252'}}>{i18n.t('Change Email')}</Modal.Header>  
+            <Modal.Body style={{'backgroundColor':'#414141'}}>
                 <label for="email">
                     {i18n.t('New Email')}:
                     <FontAwesomeIcon icon={faCheck} className={validEmail ? "valid" : "hide"} />
                     <FontAwesomeIcon icon={faTimes} className={validEmail || !email ? "hide" : "invalid"} />
                 </label><br/>
-                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                <input className="form-control dark" type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
             </Modal.Body>  
-            <Modal.Footer>  
-                <Button onClick={()=>props.setShowEmail(false)}>{i18n.t('Close')}</Button>  
+            <Modal.Footer style={{'backgroundColor':'#313131','border': '1px solid #525252'}}>  
+                <Button variant="secondary" onClick={()=>props.setShowEmail(false)}>{i18n.t('Close')}</Button>  
                 <Button onClick={emailEdit}>{i18n.t('Save')}</Button>  
             </Modal.Footer>  
         </Modal>  

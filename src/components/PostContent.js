@@ -70,16 +70,16 @@ export class PostContent extends Component {
                                         <img className='avatar' alt='img' src={post.authorImage} />
                                         <div className='post_panel inner'>
                                             <p className='user_label'>{post.author}</p>
-                                            <div class="dropdown me-1">
+                                            <div className="dropdown">
                                                 <span className='options' data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">
                                                         <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z" />
                                                     </svg>
                                                 </span>
-                                                <ul class="dropdown-menu">
-                                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                <ul className="dropdown-menu">
+                                                    <li><a className="dropdown-item" href="#">Action</a></li>
+                                                    <li><a className="dropdown-item" href="#">Another action</a></li>
+                                                    <li><a className="dropdown-item" href="#">Something else here</a></li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -110,11 +110,20 @@ export class PostContent extends Component {
                                     <textarea className='form-control' onChange={(e) => this.setState({ text: e.target.value })}></textarea>
                                     <button className='btn btn-primary w-100 mt-2 ' onClick={handleSubmit}>Comment</button>
                                 </div>
+                                {comments.length>0 ? 
+                                (
                                 <div className='comments'>
                                     {comments.map(comment => (
                                         <FeedItem key={comment.id} post={comment} />
                                     ))}
                                 </div>
+                                ) : (
+                                    <div className='w-100 mt-2 empty-container' >
+                                        <label>Empty</label>
+                                    </div>
+                                    )
+                                }
+                                
                             </div>
                         </div>
                     ) : (

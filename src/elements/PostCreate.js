@@ -22,10 +22,10 @@ export default function PostCreate(){
     return(
         <div>
             {/* <h style={{'color':'white'}}>Create Post</h> */}
-            <div className='feed_item' style={{ 'textAlign': 'left','paddingBottom':"16px" }} /*onClick={}*/>
+            <div className='feed_item' style={{ 'textAlign': 'left','paddingBottom':"16px",'minHeight':'90px' }} /*onClick={}*/>
                 <div className='w-100 mt-30'> 
                     <div>
-                        <textarea className="form-control" placeholder="Create Post" onChange={(e) => setText(e.target.value)}></textarea>
+                        <textarea className="form-control dark" placeholder="Create Post" onChange={(e) => setText(e.target.value)}></textarea>
                     </div>
                     <button className="btn btn-primary w-100 mt-3" onClick={handleSubmit}>Publish</button>
                 </div>
