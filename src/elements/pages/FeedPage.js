@@ -3,6 +3,7 @@ import './Profile.css';
 import FeedItem from "../../components/FeedItem";
 import { allPosts } from '../../api/axios.js';
 import {useAuth} from '../../context/AuthContext'
+import PostCreate from "../PostCreate";
 
 export default function FeedPage(){
     const { auth } = useAuth();
@@ -23,7 +24,8 @@ export default function FeedPage(){
 
     return(
         <div> 
-            <div className="feed">
+            <div className="container">
+                <PostCreate />
                 {posts.filter((elem)=>elem.id).map(post => (
                 <FeedItem key={post.id} post={post} />
             ))}
