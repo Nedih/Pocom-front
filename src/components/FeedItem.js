@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
-import axios, { makeReaction } from '../../src/api/axios.js';
+import axios, { changeReaction, deleteReaction, makeReaction } from '../../src/api/axios.js';
 import './FeedItem.css';
 
 export class FeedItem extends Component {
@@ -14,6 +14,9 @@ export class FeedItem extends Component {
         clicked: false,
     };
 
+    componentDidMount() {
+    }
+
     handleClick() {
         console.log(this.clicked);
         this.setState({ clicked: true });
@@ -22,12 +25,28 @@ export class FeedItem extends Component {
 
     async likeHandler(event) {
         event.stopPropagation();
+        const { post } = this.props;
         const reaction = {
-            postId: this.props.post.id,
+            postId: post.id,
             reactionType: 1
         }
+        switch(post.userReactionType) {
+            case 1:
+                await deleteReaction(reaction);
+                break;
+            case 2:
+                await changeReaction(reaction);
+                break;
+            case 3:
+                await changeReaction(reaction);
+                break;
+            default:
+                await makeReaction(reaction);
+                break;
+          }
+
         console.log("Hello");
-        await makeReaction(reaction).then(() => window.location.reload);
+        //window.location.reload();
     }
 
     render() {

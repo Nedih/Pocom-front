@@ -155,7 +155,7 @@ export const userReactions = async () => {
 
 export const postPost = async (post) => {
     try {
-        return await axiosBase.post(REACTIONS_URL, post,
+        return await axiosBase.post(ALL_POSTS_URL, post,
             {
                 headers: {
                     "access-control-allow-origin": "*",
@@ -203,12 +203,13 @@ export const changeReaction = async (reaction) => {
 
 export const deleteReaction = async (reaction) => {
     try {
-        return await axiosBase.delete(ALL_POSTS_URL, reaction,
+        return await axiosBase.delete(REACTIONS_URL,
             {
                 headers: {
                     "access-control-allow-origin": "*",
                     'Content-Type': 'application/json'
                 },
+                data: reaction,
                 withCredentials: true
             }
         )
