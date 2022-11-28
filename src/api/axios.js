@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
@@ -262,7 +262,7 @@ async function catchRefresh(err) {
                 await setTokens(response);
             })
         } catch (err) {
-            console.log(`Status: ${err.response?.status}\nMessage: ${err.response?.message}`)
+            console.log(`Status: ${err.response?.status}\nMessage: ${err.response?.message}\Text: ${err.response?.text}`)
         }
     }
 }
