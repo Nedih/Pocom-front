@@ -49,9 +49,6 @@ export default function Profile() {
                 ) : (
                     <>
                         <ProfileInfo user={user} updateUser={updateUser} updateMode={updateMode} />
-                        <div>
-                            <PostCreate />
-                        </div>
                         <div className="feed">
                             <FeedPage posts={posts} />
                         </div>

@@ -212,7 +212,7 @@ function SignUpForm() {
                         <label htmlFor="date">
                             {i18n.t('Birth Date')}
                         </label>
-                        <DatePicker className={"form-control text-center" + (date?(validDate ? ' is-valid' : ' is-invalid'):'') } id="date" selected={date} onChange={(date) => setDate(date)}
+                        <input type='date' className={"form-control text-center" + (date?(validDate ? ' is-valid' : ' is-invalid'):'') } id="date" selected={date} onChange={(date) => setDate(date)}
                             aria-invalid={validDate ? "false" : "true"}
                             aria-describedby="uidnote" />
 
