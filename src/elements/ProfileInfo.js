@@ -9,7 +9,7 @@ export default function ProfileInfo(props){
     return(
         <div className="profile">
             <div className="row">
-                <img src={props.user.image || "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png"} width="105px"/> 
+                <img src={props.user.image || "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png"}/> 
                 <div className="btnContainer">
                     <button className="editBtn" onClick={handleClick}>Edit Profile</button>
                 </div>

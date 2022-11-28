@@ -21,6 +21,8 @@
 
 .profile img {
     border: 3px solid white;
+    width: 145px;
+    height: 145px;
 }
 
 .row {

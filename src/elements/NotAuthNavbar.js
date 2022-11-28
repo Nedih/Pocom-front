@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {
   NavLink
 } from "react-router-dom";
+import LanguageButton from './partials/LanguageButton';
 
 const lngs = {
   en: { nativeName: 'English' },

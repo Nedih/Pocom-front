@@ -30,8 +30,8 @@ export const signIn = async (input) => {
     );
 }
 
-export const addHeaderAuth = async (token) => {
-    axiosBase.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+export const addHeaderAuth = async () => {
+    axiosBase.defaults.headers.common['Authorization'] = `Bearer ${window.sessionStorage.getItem('userToken')?.toString()}`;
 }
 
 export const signUp = async (newUser) => {
@@ -218,8 +218,8 @@ export const deleteReaction = async (reaction) => {
     };
 }
 
-export async function SetTokens(response){
-    const {auth, setAuth} = useAuth();
+export async function setTokens(response){
+   // const {auth, setAuth} = useAuth();
 
     console.log(JSON.stringify(response?.data));
     const accessToken = response?.data?.accessToken;
@@ -231,8 +231,8 @@ export async function SetTokens(response){
     window.sessionStorage.setItem('refreshToken', refreshToken?.toString());
     window.sessionStorage.setItem('isAuthorized', true);
 
-    const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString(), roles: auth.roles}
-    setAuth(loggedUser);
+    /*const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString(), roles: auth.roles}
+    setAuth(loggedUser);*/
 }
 
 async function catchRefresh(err) {
@@ -253,7 +253,8 @@ async function catchRefresh(err) {
                 withCredentials: true
             }
         ).then((response) => {
-            SetTokens(response);
+            console.log(JSON.stringify(response?.data));
+            setTokens(response);
         })
     }
 }
