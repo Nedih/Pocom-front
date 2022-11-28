@@ -12,6 +12,7 @@ const LOGOUT_URL = '/api/auth/sign-out';
 const USERS_URL = '/api/user/users-list';
 const ALL_POSTS_ANONYMOUS_URL = '/api/v1/Posts/';
 const USER_REACTIONS_URL = '/api/v1/Posts/user-reactions';
+const REACTIONS_URL = '/api/reactions/';
 
 const TOKEN_REFRESH_URL = '/api/auth/refresh-token';
 
@@ -154,7 +155,55 @@ export const userReactions = async () => {
 
 export const postPost = async (post) => {
     try {
-        return await axiosBase.post(ALL_POSTS_URL, post,
+        return await axiosBase.post(REACTIONS_URL, post,
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        )
+    } catch (err) {
+        catchRefresh(err);
+    };
+}
+
+export const makeReaction = async (reaction) => {
+    try {
+        return await axiosBase.post(REACTIONS_URL, reaction,
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        )
+    } catch (err) {
+        catchRefresh(err);
+    };
+}
+
+export const changeReaction = async (reaction) => {
+    try {
+        return await axiosBase.put(REACTIONS_URL, reaction,
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        )
+    } catch (err) {
+        catchRefresh(err);
+    };
+}
+
+export const deleteReaction = async (reaction) => {
+    try {
+        return await axiosBase.delete(ALL_POSTS_URL, reaction,
             {
                 headers: {
                     "access-control-allow-origin": "*",
@@ -175,6 +224,7 @@ export async function SetTokens(response){
     const accessToken = response?.data?.accessToken;
     const refreshToken = response?.data?.refreshToken;
     console.log("TOKEN: " + accessToken);
+    console.log("TOKEN2: " + refreshToken);
 
     window.sessionStorage.setItem('userToken', accessToken?.toString());
     window.sessionStorage.setItem('refreshToken', refreshToken?.toString());
