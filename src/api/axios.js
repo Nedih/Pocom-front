@@ -30,8 +30,8 @@ export const signIn = async (input) => {
     );
 }
 
-export const addHeaderAuth = async () => {
-    axiosBase.defaults.headers.common['Authorization'] = `Bearer ${window.sessionStorage.getItem('userToken')?.toString()}`;
+export const addHeaderAuth = async (token) => {
+    axiosBase.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
 export const signUp = async (newUser) => {
@@ -231,6 +231,9 @@ export async function setTokens(response){
     window.sessionStorage.setItem('refreshToken', refreshToken?.toString());
     window.sessionStorage.setItem('isAuthorized', true);
 
+    console.log("I set token to --- " + window.sessionStorage.getItem('userToken')?.toString());
+    console.log("I set refreshToken to --- " + window.sessionStorage.getItem('refreshToken')?.toString());
+    await addHeaderAuth(accessToken);
     /*const loggedUser = { loggedIn: true, token: accessToken?.toString(), refreshToken: refreshToken?.toString(), roles: auth.roles}
     setAuth(loggedUser);*/
 }
@@ -238,24 +241,29 @@ export async function setTokens(response){
 async function catchRefresh(err) {
     console.log(err.message);
     if (err.message == "Network Error") {
-        const token = window.sessionStorage.getItem('userToken')?.toString();
-        const tokens = {
-            accessToken: window.sessionStorage.getItem('userToken')?.toString(),
-            refreshToken: window.sessionStorage.getItem('refreshToken')?.toString()
-        };
-        await axiosBase.post(TOKEN_REFRESH_URL, tokens,
-            {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin": "*",
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
-            }
-        ).then((response) => {
-            console.log(JSON.stringify(response?.data));
-            setTokens(response);
-        })
+        try{
+            const token = window.sessionStorage.getItem('userToken')?.toString();
+            const refresh = window.sessionStorage.getItem('refreshToken')?.toString();
+            const tokens = {
+                accessToken: token,
+                refreshToken: refresh
+            };
+            await axiosBase.post(TOKEN_REFRESH_URL, tokens,
+                {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        "access-control-allow-origin": "*",
+                        'Content-Type': 'application/json'
+                    },
+                    withCredentials: true
+                }
+            ).then(async (response) => {
+                console.log(JSON.stringify(response?.data));
+                await setTokens(response);
+            })
+        } catch (err) {
+            console.log(`Status: ${err.response?.status}\nMessage: ${err.response?.message}`)
+        }
     }
 }
 

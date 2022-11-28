@@ -8,7 +8,7 @@ export default function AdminPage() {
     const [posts, setPosts] = useState([{}]);
 
     useEffect(() => {
-        //getPosts();
+        //
     }, []);
 
     async function getPosts() {
