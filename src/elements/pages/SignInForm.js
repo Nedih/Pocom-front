@@ -1,20 +1,20 @@
 import './SignUpForm.css';
-import { useRef, useState, useEffect, useContext } from 'react';
+import React, { useRef, useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   NavLink,
   useNavigate,
 } from "react-router-dom";
 
-import {useAuth} from '../AuthContext.js'
-import axios from '../api/axios.js';
+import {useAuth} from '../../context/AuthContext.js'
+import axios from '../../api/axios.js';
 
-const LOGIN_URL = '/auth';
+const LOGIN_URL = '/api/auth/login';
 
 function SignInForm() {
   const { i18n } = useTranslation();
   const navigate = useNavigate();
-  const { setAuth} = useAuth();
+  const { setAuth } = useAuth();
   const userRef = useRef();
   const errRef = useRef();
 
@@ -35,24 +35,32 @@ function SignInForm() {
     e.preventDefault();
 
     try {
-        /*const response = await axios.post(LOGIN_URL,
-            JSON.stringify({ user, pwd }),
+        const input = {
+            email: user,
+            password: pwd
+        }
+        const response = await axios.post(LOGIN_URL,
+            JSON.stringify(input),
             {
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', "Access-Control-Allow-Origin": "*" },
                 withCredentials: true
             }
-        );
-        console.log(JSON.stringify(response?.data));
-        //console.log(JSON.stringify(response));
-        const accessToken = response?.data?.accessToken;
-        const roles = response?.data?.roles;*/
-        //setAuth({ user, pwd, roles, accessToken });
-        sessionStorage.setItem('is-authorized', true);
-        setAuth(true);
-        navigate('/feed');
-        setUser('');
-        setPwd('');
-        setSuccess(true);
+        ).then((response) => {
+            console.log(JSON.stringify(response?.data));
+            const accessToken = response?.data?.token;
+            console.log("TOKEN: " + accessToken);
+
+            window.sessionStorage.setItem('userToken', accessToken?.toString());
+            window.sessionStorage.setItem('isAuthorized', true);
+            
+            const loggedUser = { loggedIn: true, token: accessToken?.toString()}
+            setAuth(loggedUser);
+            
+            navigate('/feed');
+            setUser('');
+            setPwd('');
+            setSuccess(true);
+        })
     } catch (err) {
         if (!err?.response) {
             setErrMsg('No Server Response');
@@ -83,7 +91,7 @@ function SignInForm() {
                     <p ref={errRef} className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                     <h1>{i18n.t('Sign In (header)')}</h1>
                     <form onSubmit={handleSubmit}>
-                        <label htmlFor="username">{i18n.t('Username:')}</label>
+                        <label htmlFor="username">{i18n.t('Email')}</label>
                         <input
                             type="text"
                             id="username"
