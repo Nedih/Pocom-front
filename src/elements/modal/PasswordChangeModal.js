@@ -52,24 +52,24 @@ export default function PasswordChangeModal(props){
 
     return(
         <Modal show={props.showPassword}>  
-            <Modal.Header closeButton>{i18n.t('Change Password')}</Modal.Header>  
-            <Modal.Body>
+            <Modal.Header style={{'backgroundColor':'#313131','border': '1px solid #525252'}}>{i18n.t('Change Password')}</Modal.Header>  
+            <Modal.Body style={{'backgroundColor':'#414141'}}>
                 <p className={errMsg ? "errmsg" : "offscreen"} aria-live="assertive">{errMsg}</p>
                 <label for="curPwd">
                     {i18n.t('Current Password')}:
                     <FontAwesomeIcon icon={faCheck} className={validCurPwd ? "valid" : "hide"} />
                     <FontAwesomeIcon icon={faTimes} className={validCurPwd || !curPwd ? "hide" : "invalid"} />
                 </label><br/>
-                <input type="password" id="curPwd" value={curPwd} onChange={(e) => setCurPwd(e.target.value)}/>
+                <input className="form-control" type="password" id="curPwd" value={curPwd} onChange={(e) => setCurPwd(e.target.value)}/>
                 <label for="newPwd">
                     {i18n.t('New Password')}:
                     <FontAwesomeIcon icon={faCheck} className={validNewPwd ? "valid" : "hide"} />
                     <FontAwesomeIcon icon={faTimes} className={validNewPwd || !newPwd ? "hide" : "invalid"} />
                 </label><br/>
-                <input type="password" id="newPwd" value={newPwd} onChange={(e) => setNewPwd(e.target.value)}/>
+                <input className="form-control" type="password" id="newPwd" value={newPwd} onChange={(e) => setNewPwd(e.target.value)}/>
             </Modal.Body>  
-            <Modal.Footer>  
-                <Button onClick={()=>props.setShowPassword(false)}>{i18n.t('Close')}</Button>  
+            <Modal.Footer style={{'backgroundColor':'#313131','border': '1px solid #525252'}}   >  
+                <Button variant="secondary" onClick={()=>props.setShowPassword(false)}>{i18n.t('Close')}</Button>  
                 <Button onClick={passwordChange}>{i18n.t('Save')}</Button>  
             </Modal.Footer>  
         </Modal>  

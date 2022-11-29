@@ -39,7 +39,7 @@ body {
     padding: 1rem;
     margin: 0;
     background-color: #525252;
-    border-radius: 1%;
+    border-radius: 15px;
 }
 
 .SignUpForm form {

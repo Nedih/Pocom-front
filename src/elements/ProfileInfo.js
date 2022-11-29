@@ -9,14 +9,14 @@ export default function ProfileInfo(props){
     return(
         <div className="profile">
             <div className="row">
-                <img src={props.user.image || "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png"}/> 
-                <div className="btnContainer">
-                    <button className="editBtn" onClick={handleClick}>Edit Profile</button>
-                </div>
-            </div>
-            <div className="profileNames">
+                <img style={{'borderRadius':'50%'}} src={props.user.image || "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/man-person-icon.png"} width="105px" height='105px'/> 
+                <div className="profileNames">
                 <p>Name: {props.user.name}</p>
                 <p>Username: {props.user.login}</p>
+            </div>
+                <div className="btnContainer">
+                    <button className="btn btn-secondary" onClick={handleClick}>Edit Profile</button>
+                </div>
             </div>
             <br />
         </div>

@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import './Profile.css';
 import FeedItem from "../../components/FeedItem";
 import { allPosts } from '../../api/axios.js';
+import {useAuth} from '../../context/AuthContext'
+import PostCreate from "../PostCreate";
 
 export default function FeedPage(){
 
@@ -26,10 +28,11 @@ export default function FeedPage(){
 
     return(
         <div> 
-            <div className="feed">
-                {posts.map(post => (
-                    <FeedItem key={post.id} post={post} />
-                ))}
+            <div className="container">
+                <PostCreate />
+                {posts.filter((elem)=>elem.id).map(post => (
+                <FeedItem key={post.id} post={post} />
+            ))}
             </div>
         </div>
     );
