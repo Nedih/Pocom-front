@@ -22,6 +22,8 @@ export default function AdminPage() {
     return (
         <div>
             <p>Admin Panel</p>
+            <button className="btn">Manage users</button>
+            <button className="btn">Manage posts</button>         
         </div>
     );
 }

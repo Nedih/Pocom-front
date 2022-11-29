@@ -28,8 +28,27 @@ export default function UserListPage() {
         <div>
             <div className="feed">
                 {users.map(user => (
-                    <div key={user.login}>
+                    /*<div key={user.login}>
                         <p>{user.login}</p>
+                    </div>*/
+
+                    <div className='container mt-0 p-0' key={user.login}>
+                        <div className='post'>
+                            <div>
+                                <div className='header'>
+                                    <img className='avatar' alt='img' src={user.image} />
+                                    <div className='post_panel inner'>
+                                        <p className='user_label'>{user.login}</p>   
+                                        <span className='options'>
+                                            <button className="btn btn-primary">Subscribe</button>
+                                        </span>                                 
+                                    </div>
+                                </div>
+                            </div>
+                            <div className='content'>
+                                <div className='text'>{user?.name}</div>                   
+                            </div>
+                        </div>                 
                     </div>
                 ))}
             </div>

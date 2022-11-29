@@ -6,6 +6,7 @@ import EditProfileInfo from "../EditProfileInfo";
 import { useAuth } from '../../context/AuthContext'
 import FeedPage from "./FeedPage";
 import PostCreate from "../PostCreate";
+import FeedItem from "../../components/FeedItem";
 
 export default function Profile() {
     const { auth } = useAuth();
@@ -59,7 +60,9 @@ export default function Profile() {
                             <PostCreate />
                         </div>
                         <div className="feed">
-                            <FeedPage posts={posts} />
+                            {posts.map(post => (
+                                <FeedItem key={post.id} post={post} />
+                            ))}
                         </div>
                     </>
 

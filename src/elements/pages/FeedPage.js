@@ -28,8 +28,8 @@ export default function FeedPage(){
         <div> 
             <div className="feed">
                 {posts.map(post => (
-                <FeedItem key={post.id} post={post} />
-            ))}
+                    <FeedItem key={post.id} post={post} />
+                ))}
             </div>
         </div>
     );
