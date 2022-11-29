@@ -279,33 +279,37 @@ export async function setTokens(response){
     setAuth(loggedUser);*/
 }
 
+export const refreshTokens = async() => {
+    try{
+        const token = window.sessionStorage.getItem('userToken')?.toString();
+        const refresh = window.sessionStorage.getItem('refreshToken')?.toString();
+        const tokens = {
+            accessToken: token,
+            refreshToken: refresh
+        };
+        await axiosBase.post(TOKEN_REFRESH_URL, tokens,
+            {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        ).then(async (response) => {
+            console.log(JSON.stringify(response?.data));
+            await setTokens(response);
+            window.location.reload();
+        })
+    } catch (err) {
+        console.log(`Status: ${err.response?.status}\nMessage: ${err.response?.message}\nText: ${err.response?.text}`)
+    }
+}
+
 async function catchRefresh(err) {
     console.log(err.message);
     if (err.message == "Network Error") {
-        try{
-            const token = window.sessionStorage.getItem('userToken')?.toString();
-            const refresh = window.sessionStorage.getItem('refreshToken')?.toString();
-            const tokens = {
-                accessToken: token,
-                refreshToken: refresh
-            };
-            await axiosBase.post(TOKEN_REFRESH_URL, tokens,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`,
-                        "access-control-allow-origin": "*",
-                        'Content-Type': 'application/json'
-                    },
-                    withCredentials: true
-                }
-            ).then(async (response) => {
-                console.log(JSON.stringify(response?.data));
-                await setTokens(response);
-                window.location.reload();
-            })
-        } catch (err) {
-            console.log(`Status: ${err.response?.status}\nMessage: ${err.response?.message}\nText: ${err.response?.text}`)
-        }
+        await refreshTokens();
     }
 }
 

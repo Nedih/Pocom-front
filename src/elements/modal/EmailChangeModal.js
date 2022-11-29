@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { useTranslation } from 'react-i18next';
-import { updateUserEmail } from "../../api/axios";
+import { refreshTokens, updateUserEmail } from "../../api/axios";
 import {useAuth} from '../../context/AuthContext'
 import { Button,Modal } from 'react-bootstrap';  
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
@@ -21,9 +21,11 @@ export default function EmailChangeModal(props){
 
     const emailEdit = async () => {
         const token = auth.token;
-        await updateUserEmail(email).then((response) => {
-            if(response.status == 200)
-                props.setShowEmail(false);
+        await updateUserEmail(email).then(async (response) => {
+            if(response.status == 200){
+                await refreshTokens();
+                props.setShowEmail(false);               
+            }   
         })
     }
 
