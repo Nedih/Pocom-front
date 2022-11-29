@@ -26,8 +26,9 @@
     border: 2px solid #525252;
 }
 
-.row {
-    flex-direction: row;
+.myRow {
+    display: flex !important;
+    flex-direction: row !important;
     justify-content: space-between;
     width: inherit;
     margin: 0;
@@ -97,8 +98,6 @@
 .submitBtn-container {
     align-items: center;
     position: relative;
-    /*justify-content: end;
-    align-items: ;*/
 }
 
 .submitBtn {

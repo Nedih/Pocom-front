@@ -55,10 +55,8 @@ export default function Profile() {
                 ) : (
                     <>
                         <ProfileInfo user={user} updateUser={updateUser} updateMode={updateMode} />
-                        <div>
+                        <div className="container">
                             <PostCreate />
-                        </div>
-                        <div className="feed">
                             {posts.map(post => (
                                 <FeedItem key={post.id} post={post} />
                             ))}

@@ -24,7 +24,7 @@ export default function UserReactionsPage(){
 
     return(
         <div> 
-            <div className="feed">
+            <div className="container">
                 {reactions.map(post => (
                     <FeedItem key={post.id} post={post} />
                 ))}

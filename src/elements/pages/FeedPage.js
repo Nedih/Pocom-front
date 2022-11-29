@@ -31,8 +31,8 @@ export default function FeedPage(){
             <div className="container">
                 <PostCreate />
                 {posts.filter((elem)=>elem.id).map(post => (
-                <FeedItem key={post.id} post={post} />
-            ))}
+                    <FeedItem key={post.id} post={post} />
+                ))}
             </div>
         </div>
     );

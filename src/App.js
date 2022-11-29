@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 
 import './App.css';
+import './styles/Bootstrap.css'
 import Navbar from './elements/Navbar.js'
 import NotAuthNavbar from './elements/NotAuthNavbar.js'
 import AppRoutes from "./router/AppRoutes";
