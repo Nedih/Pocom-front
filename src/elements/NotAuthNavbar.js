@@ -9,7 +9,7 @@ import LanguageButton from './partials/LanguageButton';
 
 const lngs = {
   en: { nativeName: 'English' },
-  ua: { nativeName: 'Ukrainian' }
+  ua: { nativeName: 'Українська' }
 };
 
 function NotAuthNavbar() {

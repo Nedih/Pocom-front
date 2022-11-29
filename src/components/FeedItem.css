@@ -80,6 +80,10 @@ h {
     z-index: 1;
 }
 
-.post_btns span p1{
-    margin: 5px;
+.post_btns span:hover {
+    color: antiquewhite;
+}
+
+.post_btns span .p1{
+    margin-left: 5px;
 }

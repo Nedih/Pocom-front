@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 const lngs = {
   en: { nativeName: 'English' },
-  ua: { nativeName: 'Ukrainian' }
+  ua: { nativeName: 'Українська' }
 };
 
 function Navbar() {
