@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from "react";
 import { useTranslation } from 'react-i18next';
-import axios from "../../api/axios";
+import { updateUserEmail } from "../../api/axios";
 import {useAuth} from '../../context/AuthContext'
 import { Button,Modal } from 'react-bootstrap';  
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const PUT_EMAIL_URL = '/api/user/email';
 
 const EMAIL_REGEX = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
 
@@ -22,19 +20,8 @@ export default function EmailChangeModal(props){
     }, [email])
 
     const emailEdit = async () => {
-        const updatedEmail = {
-            email: email
-        }
-
         const token = auth.token;
-        await axios.put(PUT_EMAIL_URL, JSON.stringify(updatedEmail),
-            {
-                headers: { 'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin" : "*",
-                    'Content-Type': 'application/json'  },
-                withCredentials: true
-            }
-        ).then((response) => {
+        await updateUserEmail(email).then((response) => {
             if(response.status == 200)
                 props.setShowEmail(false);
         })

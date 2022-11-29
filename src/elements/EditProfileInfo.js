@@ -62,8 +62,7 @@ export default function EditProfileInfo(props){
         }
         console.log(updatedUser);
 
-        const token = auth.token;
-        updateUser(updatedUser, token).then((response) => {
+        await updateUser(updatedUser).then((response) => {
             props.updateUser(updatedUser);
             props.updateMode(false);
             window.location.reload();

@@ -14,6 +14,9 @@ const ALL_POSTS_ANONYMOUS_URL = '/api/v1/Posts/';
 const USER_REACTIONS_URL = '/api/v1/Posts/user-reactions';
 const REACTIONS_URL = '/api/reactions/';
 
+const PUT_EMAIL_URL = '/api/user/email';
+const PUT_PASSWORD_URL = '/api/user/password';
+
 const TOKEN_REFRESH_URL = '/api/auth/refresh-token';
 
 const axiosBase = axios.create({
@@ -103,13 +106,45 @@ export const updateUser = async (updatedUser) => {
     };
 }
 
+export const updateUserEmail = async (updatedEmail) => {
+    try {
+        return await axiosBase.put(PUT_EMAIL_URL, updatedEmail,             
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        )
+    } catch (err) {
+        catchRefresh(err);
+    };
+}
+
+export const updateUserPassword = async (updatedPassword) => {
+    try {
+        return await axiosBase.put(REACTIONS_URL, updatedPassword,
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            }
+        )
+    } catch (err) {
+        catchRefresh(err);
+    };
+}
+
 export const signOut = async () => {
     try{
         return await axiosBase.post(LOGOUT_URL, "",        
           {
             headers: { 
-              "access-control-allow-origin" : "*",
-          'Content-Type': 'application/json'  },
+                "access-control-allow-origin" : "*",
+                'Content-Type': 'application/json'  },
             withCredentials: true
           }
       )} catch(err) {  

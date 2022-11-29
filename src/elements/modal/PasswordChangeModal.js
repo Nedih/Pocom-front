@@ -1,12 +1,10 @@
 import React, {useState, useEffect} from "react";
 import { useTranslation } from 'react-i18next';
-import axios from "../../api/axios";
+import { updateUserPassword } from "../../api/axios";
 import {useAuth} from '../../context/AuthContext'
 import { Button,Modal } from 'react-bootstrap';  
 import { faCheck, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-const PUT_PASSWORD_URL = '/api/user/password';
 
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%_]).{8,24}$/;
 
@@ -46,14 +44,7 @@ export default function PasswordChangeModal(props){
         }
 
         const token = auth.token;
-        await axios.put(PUT_PASSWORD_URL, JSON.stringify(updatedPassword),
-            {
-                headers: { 'Authorization': `Bearer ${token}`,
-                    "access-control-allow-origin" : "*",
-                    'Content-Type': 'application/json'  },
-                withCredentials: true
-            }
-        ).then((response) => {
+        await updateUserPassword(JSON.stringify(updatedPassword)).then((response) => {
             if(response.status == 200)
                 props.setShowPassword(false);
         })

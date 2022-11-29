@@ -4,7 +4,6 @@ import { userPosts, userProfile } from '../../api/axios.js';
 import ProfileInfo from "../ProfileInfo";
 import EditProfileInfo from "../EditProfileInfo";
 import { useAuth } from '../../context/AuthContext'
-import FeedPage from "./FeedPage";
 import PostCreate from "../PostCreate";
 import FeedItem from "../../components/FeedItem";
 
