@@ -45,6 +45,7 @@ div.feed_item:hover {
     column-gap: 8px;
     justify-content: right;
     font-size: 15px;
+    min-height: 62.25px;
 }
 
 .post_btns span {
