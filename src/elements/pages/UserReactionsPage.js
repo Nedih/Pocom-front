@@ -1,19 +1,22 @@
 import React, {useState, useEffect} from "react";
 import { userReactions } from '../../api/axios.js';
-import {useAuth} from '../../context/AuthContext'
 import FeedItem from "../../components/FeedItem";
 
 export default function UserReactionsPage(){
-    const { auth } = useAuth();
-
     const [reactions, setReactions] = useState([{}]);
 
-     useEffect(() => {
-        getUserReactions();
-      }, []);
+    useEffect(() => {
+        const controller = new AbortController();
+        getUserReactions(controller.signal);
 
-    async function getUserReactions(){
-        await userReactions().then((response) => {
+        return () => {
+            console.log("ABORT!!!")
+            controller.abort();
+        };
+    }, []);
+
+    async function getUserReactions(signal){
+        await userReactions(signal).then((response) => {
             console.log(JSON.stringify(response.data));
             setReactions(response.data);
         })

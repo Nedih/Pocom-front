@@ -1,20 +1,24 @@
 import React, {useState, useEffect} from "react";
 import './Profile.css';
 import { allPostsAnonymous } from '../../api/axios.js';
-import {useAuth} from '../../context/AuthContext'
 import FeedItem from "../../components/FeedItem";
 
 export default function NotAuthFeedPage(){
-    const { auth } = useAuth();
 
     const [posts, setPosts] = useState([{}]);
 
      useEffect(() => {
-        getPosts();
+        const controller = new AbortController();
+        getPosts(controller.signal);
+
+        return () => {
+            console.log("ABORT!!!")
+            controller.abort();
+        };
       }, []);
 
-    async function getPosts(){
-        await allPostsAnonymous().then((response) => {
+    async function getPosts(signal){
+        await allPostsAnonymous(signal).then((response) => {
             console.log(JSON.stringify(response.data));
             setPosts(response.data);
         })

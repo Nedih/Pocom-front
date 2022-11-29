@@ -21,20 +21,20 @@ export default function AppRoutes() {
       <Route element={<AuthRoutes />}>
 
         <Route element={<AdminRoutes />}>
-          <Route path="/admin-panel" element={<AdminPage/>} />
+          <Route path="/admin-panel" element={<AdminPage/>} exact/>
         </Route>
 
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/feed" element={<FeedPage />} />
-        <Route path="/users" element={<UserListPage/>} />
-        <Route path="/reactions" element={<UserReactionsPage/>} />
+        <Route path="/profile" element={<Profile />} exact/>
+        <Route path="/feed" element={<FeedPage />} exact/>
+        <Route path="/users" element={<UserListPage/>} exact/>
+        <Route path="/reactions" element={<UserReactionsPage/>} exact/>
 
       </Route>
 
-      <Route path="/sign_up" element={<SignUpForm/>} />
-      <Route path="/sign_in" element={<SignInForm/>} />
+      <Route path="/sign_up" element={<SignUpForm/>} exact/>
+      <Route path="/sign_in" element={<SignInForm/>} exact/>
       <Route path="/post/:postId" element={<Post/>} />
-      <Route path="/" element={<NotAuthFeedPage />} />
+      <Route path="/" element={<NotAuthFeedPage />}  exact/>
 
     </Routes>
   );

@@ -15,18 +15,25 @@ export default function Profile() {
     const [posts, setPosts] = useState([{}]);
 
     useEffect(() => {
-        getUserProfile();
-        getUserPosts();
+        const controller = new AbortController();
+
+        getUserProfile(controller.signal);
+        getUserPosts(controller.signal);
+
+        return () => {
+            console.log("ABORT!!!")
+            controller.abort();
+        };
     }, []);
 
-    async function getUserProfile() {
-        await userProfile().then((response) => {
+    async function getUserProfile(signal) {
+        await userProfile(signal).then((response) => {
             setUser(response.data);
         })
     }
 
-    async function getUserPosts() {
-        await userPosts().then((response) => {
+    async function getUserPosts(signal) {
+        await userPosts(signal).then((response) => {
             console.log(JSON.stringify(response.data));
             setPosts(response.data);
         })

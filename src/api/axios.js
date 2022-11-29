@@ -44,13 +44,14 @@ export const signUp = async (newUser) => {
     )
 }
 
-export const userProfile = async () => {
+export const userProfile = async (signal) => {
     try{
         return await axiosBase.get(PROFILE_URL,
             {
                 headers: { 
                     "access-control-allow-origin" : "*",
                     'Content-Type': 'application/json'  },
+                signal: signal,
                 withCredentials: true
             }
     )} catch(err) {  
@@ -58,13 +59,14 @@ export const userProfile = async () => {
     };
 }
 
-export const userPosts = async () => {
+export const userPosts = async (signal) => {
     try{
         return await axiosBase.get(USER_POSTS_URL,
             {
                 headers: { 
                     "access-control-allow-origin" : "*",
                     'Content-Type': 'application/json'  },
+                signal: signal,
                 withCredentials: true
             }
     )} catch(err) {  
@@ -72,13 +74,14 @@ export const userPosts = async () => {
     };
 }
 
-export const allPosts = async () => {
+export const allPosts = async (signal) => {
     try{
         return await axiosBase.get(ALL_POSTS_URL,
         {
             headers: { 
                 "access-control-allow-origin" : "*",
                 'Content-Type': 'application/json'  },
+            signal: signal,
             withCredentials: true
         }
     )} catch(err) {  
@@ -114,13 +117,14 @@ export const signOut = async () => {
     };
 }
 
-export const getUsers = async () => {
+export const getUsers = async (signal) => {
     try{
         return await axiosBase.get(USERS_URL,
         {
             headers: { 
                 "access-control-allow-origin" : "*",
                 'Content-Type': 'application/json'  },
+            signal: signal,
             withCredentials: true
         }
     )} catch(err) {  
@@ -128,24 +132,26 @@ export const getUsers = async () => {
     };
 }
 
-export const allPostsAnonymous = async () => {
+export const allPostsAnonymous = async (signal) => {
     return await axiosBase.get(ALL_POSTS_ANONYMOUS_URL,
         {
             headers: { 
                 "access-control-allow-origin" : "*",
                 'Content-Type': 'application/json'  },
+            signal: signal,
             withCredentials: true
         }
     )
 }
 
-export const userReactions = async () => {
+export const userReactions = async (signal) => {
     try{
         return await axiosBase.get(USER_REACTIONS_URL,
         {
             headers: { 
                 "access-control-allow-origin" : "*",
                 'Content-Type': 'application/json'  },
+            signal: signal,
             withCredentials: true
         }
     )} catch(err) {  
@@ -260,9 +266,10 @@ async function catchRefresh(err) {
             ).then(async (response) => {
                 console.log(JSON.stringify(response?.data));
                 await setTokens(response);
+                window.location.reload();
             })
         } catch (err) {
-            console.log(`Status: ${err.response?.status}\nMessage: ${err.response?.message}\Text: ${err.response?.text}`)
+            console.log(`Status: ${err.response?.status}\nMessage: ${err.response?.message}\nText: ${err.response?.text}`)
         }
     }
 }

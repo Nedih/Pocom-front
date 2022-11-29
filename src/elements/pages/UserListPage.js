@@ -8,11 +8,17 @@ export default function UserListPage() {
     const [users, setUsers] = useState([{}]);
 
     useEffect(() => {
-        getUserList();
+        const controller = new AbortController();
+        getUserList(controller.signal);
+
+        return () => {
+            console.log("ABORT!!!")
+            controller.abort();
+        };
     }, []);
 
-    async function getUserList() {
-        await getUsers().then((response) => {
+    async function getUserList(signal) {
+        await getUsers(signal).then((response) => {
             console.log(JSON.stringify(response.data));
             setUsers(response.data);
         })
