@@ -13,6 +13,7 @@
     "bootstrap": "^5.2.3",
     "flag-icons": "^6.6.6",
     "i18next-browser-languagedetector": "^7.0.1",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-avatar-edit": "^1.2.0",
     "react-bootstrap": "^2.6.0",

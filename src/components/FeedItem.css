@@ -41,16 +41,18 @@ div.feed_item:hover {
 
 .post_btns {
     display: flex;
-    margin-top: 12px;
     column-gap: 8px;
     justify-content: right;
     font-size: 15px;
-    min-height: 62.25px;
+    min-height: 52.25px;
 }
 
 .post_btns span {
     line-height: 50px;
     vertical-align: middle;
+    position: relative;
+    padding-right: 10px;
+    z-index: 1;
 }
 
 h {
@@ -74,13 +76,6 @@ h {
     position: absolute;
     right: 0;
     bottom: 0;
-}
-
-.post_btns span {
-    position: relative;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    z-index: 1;
 }
 
 .post_btns span:hover {
