@@ -28,7 +28,7 @@ export default function UserListPage() {
         <div>
             <div className="feed">
                 {users.map(user => (
-                    <div className='container mt-0 p-0' key={user.login}>
+                    <div className='container mt-0 p-0' key={user.login} onClick={() => window.location.assign(`/profile/${user.login}`)}>
                         <div className='post m-5'>
                             <div>
                                 <div className='header'>

@@ -24,7 +24,8 @@ export default function AppRoutes() {
           <Route path="/admin-panel" element={<AdminPage/>} exact/>
         </Route>
 
-        <Route path="/profile" element={<Profile />} exact/>
+        <Route path="/profile/:login" element={<Profile/>} />
+        <Route path="/profile" element={<Profile/>} />
         <Route path="/feed" element={<FeedPage />} exact/>
         <Route path="/users" element={<UserListPage/>} exact/>
         <Route path="/reactions" element={<UserReactionsPage/>} exact/>

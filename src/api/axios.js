@@ -5,7 +5,7 @@ import { useAuth } from '../context/AuthContext';
 const LOGIN_URL = '/api/auth/login';
 const REGISTER_URL = '/api/auth';
 const PROFILE_URL = '/api/user/profile';
-const USER_POSTS_URL = '/api/v1/Posts/ownposts';
+const USER_OWN_POSTS_URL = '/api/v1/Posts/ownposts';
 const POST_COMMENTS_URL = '/api/v1/Posts/comments/';
 const ALL_POSTS_URL = '/api/v1/Posts';
 const PUT_PROFILE_URL = '/api/user/profile';
@@ -15,6 +15,7 @@ const ALL_POSTS_ANONYMOUS_URL = '/api/v1/Posts/';
 const USER_REACTIONS_URL = '/api/v1/Posts/user-reactions';
 const REACTIONS_URL = '/api/reactions/';
 const POST_URL = '/api/v1/Posts/';
+const USER_POSTS_URL = '/api/v1/Posts/profile/';
 
 const PUT_EMAIL_URL = '/api/user/email';
 const PUT_PASSWORD_URL = '/api/user/password';
@@ -49,10 +50,15 @@ export const signUp = async (newUser) => {
     )
 }
 
-export const userProfile = async (signal) => {
+export const userProfile = async (login, signal) => {
+    console.log(login);
+    let URL = PROFILE_URL;
+    if (login != undefined)
+        URL += "/" + login;
     try{
-        return await axiosBase.get(PROFILE_URL,
+        return await axiosBase.get(URL,
             {
+                data: login,
                 headers: { 
                     "access-control-allow-origin" : "*",
                     'Content-Type': 'application/json'  },
@@ -66,8 +72,24 @@ export const userProfile = async (signal) => {
 
 export const userPosts = async (signal) => {
     try{
-        return await axiosBase.get(USER_POSTS_URL,
+        return await axiosBase.get(USER_OWN_POSTS_URL,
             {
+                headers: { 
+                    "access-control-allow-origin" : "*",
+                    'Content-Type': 'application/json'  },
+                signal: signal,
+                withCredentials: true
+            }
+    )} catch(err) {  
+        catchRefresh(err);
+    };
+}
+
+export const userPostsByLogin = async (login, signal) => {
+    try{
+        return await axiosBase.get(USER_POSTS_URL +login,
+            {
+                data: login,
                 headers: { 
                     "access-control-allow-origin" : "*",
                     'Content-Type': 'application/json'  },
