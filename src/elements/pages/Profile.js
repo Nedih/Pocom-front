@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import './Profile.css';
 import { userPosts, userPostsByLogin, userProfile } from '../../api/axios.js';
 import ProfileInfo from "../ProfileInfo";
+import ProfileInfo2 from "../ProfileInfo2";
 import EditProfileInfo from "../EditProfileInfo";
 import { useAuth } from '../../context/AuthContext'
 import PostCreate from "../PostCreate";
@@ -15,6 +16,7 @@ export default function Profile(props) {
     const [user, setUser] = useState({});
     const [editMode, setEditMode] = useState(false);
     const [posts, setPosts] = useState([{}]);
+    const [isOwner, setIsOwner] = useState(true);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -22,6 +24,7 @@ export default function Profile(props) {
         getUserProfile(login, controller.signal);
            // .then(() =>{
                 console.log(user.login + " + " + login);
+                setIsOwner(user.login == login || login == "");
                 if(user.login == login || login == "")
                     getOwnPosts(controller.signal);
                 else getUserPosts(login, controller.signal);
@@ -68,8 +71,12 @@ export default function Profile(props) {
                 (
                     <EditProfileInfo user={user} updateUser={updateUser} updateMode={updateMode} />
                 ) : (
-                    <>
-                        <ProfileInfo user={user} updateUser={updateUser} updateMode={updateMode} />
+                    <> {isOwner?
+                        (
+                            <ProfileInfo user={user} updateUser={updateUser} updateMode={updateMode} />
+                        ) : (
+                            <ProfileInfo2 user={user} />
+                        )}
                         <div className="container">
                             <PostCreate />
                             {posts.map(post => (
