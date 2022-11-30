@@ -15,9 +15,14 @@ export default function ParentPost(props){
         );
     }, [])
 
+    const handleClick = (e) => {
+        e.stopPropagation();
+        window.location.assign(`/post/${post.id}`)
+    }
+
     return(
         <>
-             <div key={post.id} className='parent_post' style={{ 'textAlign': 'left' }} onClick={() => window.location.assign(`/post/${post.id}`)}>
+             <div key={post.id} className='parent_post' style={{ 'textAlign': 'left' }} onClick={(e) => handleClick(e)}>
                     <div className='post_content'> 
                         {post.authorImage !== undefined? 
                         (
