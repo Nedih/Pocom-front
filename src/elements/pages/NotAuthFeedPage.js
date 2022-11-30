@@ -26,7 +26,7 @@ export default function NotAuthFeedPage(){
 
     return(
         <div> 
-            <div className="feed">
+            <div className="container">
                 {posts.map(post => (
                 <FeedItem key={post.id} post={post} />
             ))}
