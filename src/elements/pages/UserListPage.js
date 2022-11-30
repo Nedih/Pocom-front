@@ -28,17 +28,16 @@ export default function UserListPage() {
         <div>
             <div className="feed">
                 {users.map(user => (
-                    /*<div key={user.login}>
-                        <p>{user.login}</p>
-                    </div>*/
-
                     <div className='container mt-0 p-0' key={user.login}>
-                        <div className='post'>
+                        <div className='post m-5'>
                             <div>
                                 <div className='header'>
                                     <img className='avatar' alt='img' src={user.image} />
                                     <div className='post_panel inner'>
-                                        <p className='user_label'>{user.login}</p>   
+                                        <div className='d-flex flex-row'>
+                                            <div className='user_label'>{user.name}</div>
+                                            <div className='px-1'>@{user.login}</div>
+                                        </div>   
                                         <span className='options'>
                                             <button className="btn btn-primary">Subscribe</button>
                                         </span>                                 
@@ -46,7 +45,7 @@ export default function UserListPage() {
                                 </div>
                             </div>
                             <div className='content'>
-                                <div className='text'>{user?.name}</div>                   
+                                <div className='text'></div>                   
                             </div>
                         </div>                 
                     </div>

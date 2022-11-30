@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { changeReaction, deleteReaction, makeReaction }  from "../../api/axios";
+
 export default function Reactions(props){
     const [reactionsHidden, setReactionsHidden] = useState(true);
     const { post } = props;

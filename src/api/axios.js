@@ -14,6 +14,7 @@ const USERS_URL = '/api/user/users-list';
 const ALL_POSTS_ANONYMOUS_URL = '/api/v1/Posts/';
 const USER_REACTIONS_URL = '/api/v1/Posts/user-reactions';
 const REACTIONS_URL = '/api/reactions/';
+const POST_URL = '/api/v1/Posts/';
 
 const PUT_EMAIL_URL = '/api/user/email';
 const PUT_PASSWORD_URL = '/api/user/password';
@@ -125,7 +126,7 @@ export const updateUserEmail = async (updatedEmail) => {
 
 export const updateUserPassword = async (updatedPassword) => {
     try {
-        return await axiosBase.put(REACTIONS_URL, updatedPassword,
+        return await axiosBase.put(PUT_PASSWORD_URL, updatedPassword,
             {
                 headers: {
                     "access-control-allow-origin": "*",
@@ -195,6 +196,23 @@ export const userReactions = async (signal) => {
     };
 }
 
+export const getPost = async (id, signal) => {
+    try{
+        return await axiosBase.get(POST_URL + id,
+            {
+                headers: {
+                    "access-control-allow-origin": "*",
+                    'Content-Type': 'application/json'
+                },
+                signal: signal,
+                withCredentials: true
+            }
+        )
+    } catch (err) {
+        catchRefresh(err);
+    };
+}
+
 
 export const postPost = async (post) => {
     try {
@@ -211,6 +229,7 @@ export const postPost = async (post) => {
         catchRefresh(err);
     };
 }
+
 export const getComments = async (id) => {
     try {
         return await axiosBase.get(POST_COMMENTS_URL+id,
@@ -226,6 +245,7 @@ export const getComments = async (id) => {
         catchRefresh(err);
     };
 }
+
 export const makeReaction = async (reaction) => {
     try {
         return await axiosBase.post(REACTIONS_URL, reaction,

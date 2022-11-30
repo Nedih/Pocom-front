@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import Moment from 'moment';
 import FeedItem from './FeedItem';
 import './PostContent.css'
-import axios from '../../src/api/axios.js';
-import { postPost, getComments } from "../api/axios";
+import { postPost, getComments, getPost } from "../api/axios";
 import Reactions from '../elements/partials/Reactions.js';
-
-const POST_URL = '/api/v1/Posts/';
 
 
 export class PostContent extends Component {
@@ -20,22 +17,17 @@ export class PostContent extends Component {
     componentDidMount() {
         const { id } = this.props;
 
-        axios.get(POST_URL + id,
-            {
-                headers: {
-                    "access-control-allow-origin": "*",
-                    'Content-Type': 'application/json'
-                },
-                withCredentials: true
+        getPost(id)
+            .then((response) => {
+                this.setState({ post: response.data });
+                this.setState({ loaded: true });
             }
-        ).then((response) => {
-            this.setState({ post: response.data });
-            this.setState({ loaded: true });
-        })
+        );
         getComments(id)
             .then((response) => {
                 this.setState({ comments: response.data });
-            })
+            }
+        );
     }
     render() {
         const { text, post, loaded, comments } = this.state;
@@ -71,7 +63,10 @@ export class PostContent extends Component {
                                     <div className='header'>
                                         <img className='avatar' alt='img' src={post.authorImage} />
                                         <div className='post_panel inner'>
-                                            <p className='user_label'>{post.author}</p>
+                                        <div className='d-flex flex-row'>
+                                            <div className='user_label'>{post.authorName}</div>
+                                            <div className='px-1'>@{post.authorLogin}</div>
+                                        </div>
                                             <div className="dropdown">
                                                 <span className='options' data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-three-dots" viewBox="0 0 16 16">
