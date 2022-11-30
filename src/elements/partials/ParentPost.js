@@ -53,8 +53,9 @@ export default function ParentPost(props){
                                 </div>
                             </div>
 
-                            <div>
+                            <div className='me-4'>
                                 <p >{post.text}</p>
+                                {post.image && <img className='attach mt-3 rounded' alt='img' src={post.image} />}
                             </div>
 
                             <Reactions post={post} /> 

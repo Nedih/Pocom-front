@@ -61,9 +61,10 @@ export class FeedItem extends Component {
                                 </div>
                             </div>
 
-                            <div>
+                            <div className='me-4'>
                                 <p >{post.text}</p>
                                 {post.parentPostId != undefined && <ParentPost id={post.parentPostId} />}
+                                {post.parentPostId == undefined && post.image && <img className='attach mt-3 rounded' alt='img' src={post.image} />}
                             </div>
 
                             <Reactions post={post} /> 

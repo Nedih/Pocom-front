@@ -47,7 +47,7 @@ export class PostContent extends Component {
 
         let image;
         if (post.image !== null) {
-            image = <img className='attach mt-3' alt='img' src={post.image} />
+            image = <img className='attach mt-3 rounded' alt='img' src={post.image} />
         }
         else {
             image = <></>
